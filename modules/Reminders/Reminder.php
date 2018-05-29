@@ -62,12 +62,6 @@ class Reminder extends Basic
      */
     public $date_willexecute;
 
-    /**
-     *
-     * @var int
-     */
-    public $date_willexecute;
-
     var $popup;
     var $email;
     var $email_sent = false;
