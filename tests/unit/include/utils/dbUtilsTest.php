@@ -33,7 +33,7 @@ class db_utilsTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
     public function testdb_convert($string, $type, $params, $expected)
     {
         $state = new SuiteCRM\StateSaver();
-        $state->pushTable('aod_indexevent');
+        
         
         //execute the method and test if it returns expected values for all types
         $actual = db_convert($string, $type, $params);
@@ -41,7 +41,7 @@ class db_utilsTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         // clean up
         
-        $state->popTable('aod_indexevent');
+        
     }
 
     public function testdb_concat()

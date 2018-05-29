@@ -172,7 +172,6 @@ class SugarControllerTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
     {
         
         $state = new SuiteCRM\StateSaver();
-        $state->pushTable('aod_index');
         $state->pushTable('tracker');
         
         if(isset($_SESSION)) {
@@ -214,7 +213,6 @@ class SugarControllerTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         DBManagerFactory::getInstance()->query($query);
         
         $state->popTable('tracker');
-        $state->popTable('aod_index');
     }
 
     public function testaction_spot()

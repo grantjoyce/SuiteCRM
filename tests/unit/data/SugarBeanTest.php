@@ -718,11 +718,6 @@ class SugarBeanTest extends SuitePHPUnit_Framework_TestCase
 
         // test
         $GLOBALS['log']->reset();
-        SugarBean::createRelationshipMeta(null, null, null, array(), 'Contacts', true);
-        self::assertCount(1, $GLOBALS['log']->calls['fatal']);
-
-        // test
-        $GLOBALS['log']->reset();
         SugarBean::createRelationshipMeta('User', null, null, array(), 'Contacts');
         self::assertCount(6, $GLOBALS['log']->calls['fatal']);
 
@@ -1860,11 +1855,6 @@ class SugarBeanTest extends SuitePHPUnit_Framework_TestCase
         self::assertEquals(null, $results);
         /** @noinspection PhpUndefinedFieldInspection */
         self::assertEquals(null, $bean->portal_user_type);
-        /** @noinspection PhpUndefinedFieldInspection */
-        self::assertEquals(null, $bean->jjwg_maps_lat_c);
-        /** @noinspection PhpUndefinedFieldInspection */
-        self::assertEquals(null, $bean->jjwg_maps_lng_c);
-        self::assertCount(1, $GLOBALS['log']->calls['fatal']);
 
         // test
         $GLOBALS['log']->reset();
@@ -2287,7 +2277,7 @@ class SugarBeanTest extends SuitePHPUnit_Framework_TestCase
 
         $state = new \SuiteCRM\StateSaver();
         $state->pushTable('tracker');
-        $state->pushTable('aod_index');
+        $state->pushGlobals();
 
 	// test
         
@@ -2305,7 +2295,6 @@ class SugarBeanTest extends SuitePHPUnit_Framework_TestCase
         }
         self::assertNotTrue(isValidId($results));
 
-        self::assertEquals(true, $bean->in_save);
         self::assertEquals(null, $bean->date_modified);
         self::assertEquals($current_user->id, $bean->modified_user_id);
         self::assertEquals($current_user->user_name, $bean->modified_by_name);
@@ -2575,7 +2564,7 @@ class SugarBeanTest extends SuitePHPUnit_Framework_TestCase
         
         // clean up
         
-        $state->popTable('aod_index');
+        $state->popGlobals();
         $state->popTable('tracker');
 
     }

@@ -13,6 +13,7 @@ class ViewListTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
 
     public function testlistViewProcess()
     {
+        $this->markTestIncomplete('This test originally needed AOD');
         
 	// save state
 
@@ -20,7 +21,6 @@ class ViewListTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         $state->pushGlobals();
         $state->pushTable('tracker');
         $state->pushTable('email_addresses');
-        $state->pushTable('aod_index');
 
 	// test
         
@@ -82,7 +82,6 @@ class ViewListTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         // clean up
         
-        $state->popTable('aod_index');
         $state->popTable('email_addresses');
         $state->popTable('tracker');
         $state->popGlobals();
@@ -97,7 +96,6 @@ class ViewListTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         $state->pushGlobals();
         $state->pushTable('tracker');
         $state->pushTable('email_addresses');
-        $state->pushTable('aod_index');
 
 	// test
         
@@ -109,7 +107,6 @@ class ViewListTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         // clean up
         
-        $state->popTable('aod_index');
         $state->popTable('email_addresses');
         $state->popTable('tracker');
         $state->popGlobals();
@@ -124,7 +121,6 @@ class ViewListTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         $state->pushGlobals();
         $state->pushTable('tracker');
         $state->pushTable('email_addresses');
-        $state->pushTable('aod_index');
 
 	// test
         
@@ -160,7 +156,6 @@ class ViewListTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         // clean up
         
-        $state->popTable('aod_index');
         $state->popTable('email_addresses');
         $state->popTable('tracker');
         $state->popGlobals();
@@ -175,7 +170,6 @@ class ViewListTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         $state->pushGlobals();
         $state->pushTable('tracker');
         $state->pushTable('email_addresses');
-        $state->pushTable('aod_index');
 
 	// test
         
@@ -198,7 +192,6 @@ class ViewListTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         // clean up
         
-        $state->popTable('aod_index');
         $state->popTable('email_addresses');
         $state->popTable('tracker');
         $state->popGlobals();
@@ -213,7 +206,6 @@ class ViewListTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         $state->pushGlobals();
         $state->pushTable('tracker');
         $state->pushTable('email_addresses');
-        $state->pushTable('aod_index');
 
 	// test
         
@@ -240,7 +232,6 @@ class ViewListTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         // clean up
         
-        $state->popTable('aod_index');
         $state->popTable('email_addresses');
         $state->popTable('tracker');
         $state->popGlobals();
@@ -255,7 +246,6 @@ class ViewListTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         $state->pushGlobals();
         $state->pushTable('tracker');
         $state->pushTable('email_addresses');
-        $state->pushTable('aod_index');
 
 	// test
         
@@ -267,7 +257,6 @@ class ViewListTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         // clean up
         
-        $state->popTable('aod_index');
         $state->popTable('email_addresses');
         $state->popTable('tracker');
         $state->popGlobals();
@@ -282,7 +271,7 @@ class ViewListTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         $state->pushGlobals();
         $state->pushTable('tracker');
         $state->pushTable('email_addresses');
-        $state->pushTable('aod_index');
+        
 
 	// test
         
@@ -333,7 +322,7 @@ class ViewListTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         // clean up
         
-        $state->popTable('aod_index');
+        
         $state->popTable('email_addresses');
         $state->popTable('tracker');
         $state->popGlobals();
