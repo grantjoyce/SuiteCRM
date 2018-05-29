@@ -317,6 +317,3 @@ $layout_defs['ProjectTemplates'] = array(
 
     ),
 );
-
-
-?>

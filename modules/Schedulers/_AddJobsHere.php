@@ -430,7 +430,7 @@ function removeDocumentsFromFS()
      * @var DBManager $db
      * @var SugarBean $bean
      */
-    global $db;
+    $db = DBManagerFactory::getInstance();
 
     // temp table to store id of files without memory leak
     $tableName = 'cron_remove_documents';
@@ -760,4 +760,3 @@ if (file_exists('custom/modules/Schedulers/_AddJobsHere.php')) {
 if (file_exists('custom/modules/Schedulers/Ext/ScheduledTasks/scheduledtasks.ext.php')) {
     require('custom/modules/Schedulers/Ext/ScheduledTasks/scheduledtasks.ext.php');
 }
-?>

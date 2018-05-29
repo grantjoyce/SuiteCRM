@@ -40,4 +40,3 @@ array (
     'default' => true,
   ),
 );
-?>

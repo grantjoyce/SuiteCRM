@@ -182,4 +182,3 @@ $layout_defs['Prospects'] = array(
         ),
     ),
 );
-?>

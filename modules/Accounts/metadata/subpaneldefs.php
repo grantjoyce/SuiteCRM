@@ -322,4 +322,3 @@ $layout_defs['Accounts'] = array(
         ),
     ),
 );
-?>

@@ -57,4 +57,3 @@ $dictionary['projects_bugs'] = array (
     'relationships' => array (
     ),
 );
-?>

@@ -137,5 +137,3 @@ $moduleFilters = array(
 		),
 	),
 );
-
-?>

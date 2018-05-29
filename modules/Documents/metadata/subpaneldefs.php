@@ -171,4 +171,3 @@ $layout_defs['Documents'] = array(
         ),
     ),
 );
-?>

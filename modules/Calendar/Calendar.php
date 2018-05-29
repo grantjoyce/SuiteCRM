@@ -440,5 +440,3 @@ class Calendar {
     }
 
 }
-
-?>

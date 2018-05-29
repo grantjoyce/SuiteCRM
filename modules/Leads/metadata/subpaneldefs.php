@@ -209,4 +209,3 @@ $layout_defs['Leads'] = array(
         ),
     ),
 );
-?>

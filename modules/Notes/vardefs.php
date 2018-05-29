@@ -465,4 +465,3 @@ $dictionary['Note'] = array(
 
 VardefManager::createVardef('Notes','Note', array('assignable', 'security_groups',
 ));
-?>

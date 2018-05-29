@@ -56,5 +56,4 @@ $dictionary['contacts_bugs'] = array('table' => 'contacts_bugs'
 , 'relationships' => array()
 
 
-)
-?>
+);

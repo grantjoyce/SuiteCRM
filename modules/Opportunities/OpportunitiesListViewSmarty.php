@@ -38,5 +38,3 @@ class OpportunitiesListViewSmarty extends ListViewSmarty {
     }
 
 }
-
-?>

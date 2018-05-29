@@ -312,5 +312,3 @@ $vardef_meta_array = array (
 	//end template_rel_filter
 	),
 );
-
-?>

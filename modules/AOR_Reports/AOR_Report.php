@@ -5,7 +5,7 @@
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
  * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
- * Copyright (C) 2011 - 2017 SalesAgility Ltd.
+ * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Affero General Public License version 3 as published by the
@@ -41,7 +41,6 @@
 if (!defined('sugarEntry') || !sugarEntry) {
     die('Not A Valid Entry Point');
 }
-
 
 class AOR_Report extends Basic
 {
@@ -188,6 +187,7 @@ class AOR_Report extends Basic
         $linkedCharts = $this->get_linked_beans('aor_charts', 'AOR_Charts');
         if (!$linkedCharts) {
             //No charts to display
+            LoggerManager::getLogger()->warn('No charts to display to build report chart for AOR Report.');
             return '';
         }
 
@@ -558,19 +558,33 @@ class AOR_Report extends Basic
                     $groupDisplay = $app_strings['LBL_NONE'];
                 }
 
+                 // Fix #5427 If download pdf then not use tab-content and add css inline to work with mpdf
+                $pdf_style = "";
+                $action = $_REQUEST['action'];
+                if ($action == 'DownloadPDF') {
+                    $pdf_style = "background: #333 !important; color: #fff !important; margin-bottom: 0px;";
+                }
+
                 $html .= '<div class="panel panel-default">
-                            <div class="panel-heading ">
+                            <div class="panel-heading" style="' . $pdf_style . '">
                                 <a class="" role="button" data-toggle="collapse" href="#detailpanel_report_group_' . $groupValue . '" aria-expanded="false">
                                     <div class="col-xs-10 col-sm-11 col-md-11">
                                         ' . $groupDisplay . '
                                     </div>
                                 </a>
-                            </div>
-                            <div class="panel-body panel-collapse collapse in" id="detailpanel_report_group_' . $groupValue . '">
+                            </div>';
+                if ($action != 'DownloadPDF') {
+                    $html .= '<div class="panel-body panel-collapse collapse in" id="detailpanel_report_group_' . $groupValue . '">
                                 <div class="tab-content">';
+                }
+                else {
+                    $html .= '</div>';
+                }
+
 
                 $html .= $this->build_report_html($offset, $links, $groupValue, create_guid(), $extra);
-                $html .= '</div></div></div>';
+                $html .= ($action == 'downloadPDF') ? '' : '</div></div></div>';
+                // End
 
             }
         }
@@ -619,7 +633,16 @@ class AOR_Report extends Basic
             }
         }
 
-        $html='<div class="list-view-rounded-corners">';
+          // Fix #5427
+        $report_style = '';
+        $thead_style = '';
+        if ((isset($_REQUEST['action']) ? $_REQUEST['action'] : null) == 'DownloadPDF') {
+            $report_style = 'margin-top: 0px;';
+            $thead_style = 'background: #919798; color: #fff';
+        }
+        $html = '<div class="list-view-rounded-corners" style="' . $report_style . '">';
+        //End
+        
         $html.='<table id="report_table_'.$tableIdentifier.$group_value.'" cellpadding="0" cellspacing="0" width="100%" border="0" class="list view table-responsive aor_reports">';
 
         $sql = "SELECT id FROM aor_fields WHERE aor_report_id = '" . $this->id . "' AND deleted = 0 ORDER BY field_order ASC";
@@ -664,7 +687,9 @@ class AOR_Report extends Basic
 
 
             if ($fields[$label]['display']) {
-                $html .= "<th scope='col'>";
+                 // Fix #5427
+                $html .= "<th scope='col' style='{$thead_style}'>";
+                // End
                 $html .= "<div>";
                 $html .= $field->label;
                 $html .= "</div></th>";
@@ -703,17 +728,17 @@ class AOR_Report extends Basic
             $html .= '<td nowrap="nowrap" align="right" class="paginationChangeButtons" width="1%">';
             if ($offset == 0) {
                 $html .= "<button type='button' id='listViewStartButton_top' name='listViewStartButton' title='Start' class='button' disabled='disabled'>
-                    <img src='" . SugarThemeRegistry::current()->getImageURL('start_off.gif') . "' alt='Start' align='absmiddle' border='0'>
+                    <span class='suitepicon suitepicon-action-first'></span>
                 </button>
                 <button type='button' id='listViewPrevButton_top' name='listViewPrevButton' class='button' title='Previous' disabled='disabled'>
-                    <img src='" . SugarThemeRegistry::current()->getImageURL('previous_off.gif') . "' alt='Previous' align='absmiddle' border='0'>
+                    <span class='suitepicon suitepicon-action-left'></span>
                 </button>";
             } else {
                 $html .= "<button type='button' id='listViewStartButton_top' name='listViewStartButton' title='Start' class='button' onclick='changeReportPage(\"" . $this->id . "\",0,\"" . $group_value . "\",\"" . $tableIdentifier . "\")'>
-                    <img src='" . SugarThemeRegistry::current()->getImageURL('start.gif') . "' alt='Start' align='absmiddle' border='0'>
+                    <span class='suitepicon suitepicon-action-first'></span>
                 </button>
                 <button type='button' id='listViewPrevButton_top' name='listViewPrevButton' class='button' title='Previous' onclick='changeReportPage(\"" . $this->id . "\"," . $previous_offset . ",\"" . $group_value . "\",\"" . $tableIdentifier . "\")'>
-                    <img src='" . SugarThemeRegistry::current()->getImageURL('previous.gif') . "' alt='Previous' align='absmiddle' border='0'>
+                    <span class='suitepicon suitepicon-action-left'></span>
                 </button>";
             }
             $html .= '</td><td style="vertical-align:middle" nowrap="nowrap" width="1%" class="paginationActionButtons">';
@@ -721,17 +746,17 @@ class AOR_Report extends Basic
             $html .= '</td><td nowrap="nowrap" align="right" class="paginationActionButtons" width="1%">';
             if ($next_offset < $total_rows) {
                 $html .= "<button type='button' id='listViewNextButton_top' name='listViewNextButton' title='Next' class='button' onclick='changeReportPage(\"" . $this->id . "\"," . $next_offset . ",\"" . $group_value . "\",\"" . $tableIdentifier . "\")'>
-                        <img src='" . SugarThemeRegistry::current()->getImageURL('next.gif') . "' alt='Next' align='absmiddle' border='0'>
+                       <span class='suitepicon suitepicon-action-right'></span>
                     </button>
                      <button type='button' id='listViewEndButton_top' name='listViewEndButton' title='End' class='button' onclick='changeReportPage(\"" . $this->id . "\"," . $last_offset . ",\"" . $group_value . "\",\"" . $tableIdentifier . "\")'>
-                        <img src='" . SugarThemeRegistry::current()->getImageURL('end.gif') . "' alt='End' align='absmiddle' border='0'>
+                        <span class='suitepicon suitepicon-action-last'></span>
                     </button>";
             } else {
                 $html .= "<button type='button' id='listViewNextButton_top' name='listViewNextButton' title='Next' class='button'  disabled='disabled'>
-                        <img src='" . SugarThemeRegistry::current()->getImageURL('next_off.gif') . "' alt='Next' align='absmiddle' border='0'>
+                        <span class='suitepicon suitepicon-action-next'></span>
                     </button>
                      <button type='button' id='listViewEndButton_top' name='listViewEndButton' title='End' class='button'  disabled='disabled'>
-                        <img src='" . SugarThemeRegistry::current()->getImageURL('end_off.gif') . "' alt='End' align='absmiddle' border='0'>
+                       <span class='suitepicon suitepicon-action-last'></span>
                     </button>";
 
             }
@@ -840,8 +865,18 @@ class AOR_Report extends Basic
             $field->retrieve($row['id']);
 
             if ($field->field_function != 'COUNT' || $field->format != '') {
-                $moduleFieldByGroupValues[] = $group_value;
+                // Fix grouping on assignment displays ID and not name #5427
+                $report_bean = BeanFactory::getBean($this->report_module);
+                $field_def = $report_bean->field_defs[$field->field];
+                if ($field_def['type'] == 'relate' && isset($field_def['id_name'])) {
+                    $related_bean = BeanFactory::getBean($field_def['module']);
+                    $related_bean->retrieve($group_value);
+                    $moduleFieldByGroupValues[] = ($related_bean instanceof Person) ? $related_bean->full_name : $related_bean->name;
+                } else {
+                    $moduleFieldByGroupValues[] = $group_value;
+                }
                 continue;
+                // End
             }
 
             $path = unserialize(base64_decode($field->module_path));
@@ -888,7 +923,7 @@ class AOR_Report extends Basic
             }
             if ($field['total']) {
                 $showTotal = true;
-                $totalLabel = $field['label'] . ' ' . $app_list_strings['aor_total_options'][$field['total']];
+                $totalLabel = $field['label'] . ' ' . $app_list_strings['aor_total_options'][isset($field['total']) ? $field['total'] : null];
                 $html .= "<th>{$totalLabel}</td>";
             } else {
                 $html .= '<th></th>';
@@ -909,8 +944,17 @@ class AOR_Report extends Basic
                 $type = $field['total'];
                 $total = $this->calculateTotal($type, $totals[$label]);
                 // Customise display based on the field type
-                $moduleBean = BeanFactory::newBean($field['module']);
-                $fieldDefinition = $moduleBean->field_defs[$field['field']];
+                $moduleBean = BeanFactory::newBean(isset($field['module']) ? $field['module'] : null);
+                if (!is_object($moduleBean)) {
+                    LoggerManager::getLogger()->warn('Unable to create new module bean when trying to build report html. Module bean was: ' . (isset($field['module']) ? $field['module'] : 'NULL'));
+                    $moduleBeanFieldDefs = null;
+                } elseif (!isset($moduleBean->field_defs)) {
+                    LoggerManager::getLogger()->warn('File definition not found for module when trying to build report html. Module bean was: ' . get_class($moduleBean));
+                    $moduleBeanFieldDefs = null;
+                } else {
+                    $moduleBeanFieldDefs = $moduleBean->field_defs;
+                }
+                $fieldDefinition = $moduleBeanFieldDefs[isset($field['field']) ? $field['field'] : null];
                 $fieldDefinitionType = $fieldDefinition['type'];
                 switch ($fieldDefinitionType) {
                     case "currency":
@@ -1014,6 +1058,11 @@ class AOR_Report extends Basic
             ++$i;
         }
 
+        // Remove last delimiter of the line
+        if ($field->display) {
+            $csv = substr($csv, 0, strlen($csv) - strlen($delimiter));
+        }
+            
         $sql = $this->build_report_query();
         $result = $this->db->query($sql);
 
@@ -1031,6 +1080,8 @@ class AOR_Report extends Basic
                     $csv .= $delimiter;
                 }
             }
+            // Remove last delimiter of the line
+            $csv = substr($csv, 0, strlen($csv) - strlen($delimiter));
         }
 
         $csv = $GLOBALS['locale']->translateCharset($csv, 'UTF-8', $GLOBALS['locale']->getExportCharset());
@@ -1073,13 +1124,21 @@ class AOR_Report extends Basic
         }
         $query_array = $this->build_report_query_where($query_array);
 
-        foreach ($query_array['select'] as $select) {
-            $query .= ($query == '' ? 'SELECT ' : ', ') . $select;
+        if(!isset($query_array['select'])) {
+            LoggerManager::getLogger()->warn('Trying to build report query without database select definition.');
+        } else {
+            foreach ($query_array['select'] as $select) {
+                $query .= ($query == '' ? 'SELECT ' : ', ') . $select;
+            }
         }
 
         if (empty($query_array['group_by'])) {
             foreach ($query_array['id_select'] as $select) {
-                $query .= ', ' . $select;
+                if (!$query) {
+                    $query = 'SELECT ' . $select;
+                } else {
+                    $query .= ', ' . $select;
+                }
             }
         }
 
@@ -1228,6 +1287,7 @@ class AOR_Report extends Basic
                 } else {
                     $select_field = $this->db->quoteIdentifier($table_alias) . '.' . $field->field;
                 }
+                $select_field_db = $select_field;
 
                 if ($field->format && in_array($data['type'], array('date', 'datetime', 'datetimecombo'))) {
                     if (in_array($data['type'], array('datetime', 'datetimecombo'))) {
@@ -1252,7 +1312,12 @@ class AOR_Report extends Basic
                 }
 
                 if ($field->sort_by != '') {
-                    $query['sort_by'][] = $select_field . " " . $field->sort_by;
+                    // If the field is a date, sort by the natural date and not the user-formatted date
+                    if ($data['type'] == 'date' || $data['type'] == 'datetime') {
+                        $query['sort_by'][] = $select_field_db . " " . $field->sort_by;
+                    } else {
+                        $query['sort_by'][] = $select_field . " " . $field->sort_by;
+                    }
                 }
 
                 $query['select'][] = $select_field . " AS '" . $field->label . "'";
@@ -1716,6 +1781,14 @@ class AOR_Report extends Basic
                     }
 
                     if ($condition->value_type == 'Value' && !$condition->value && $condition->operator == 'Equal_To') {
+                        if(!isset($value)) {
+                            $GLOBALS['log']->warn(
+                                $condition->field
+                                . ' value is not set, assuming empty string value'
+                            );
+                            $value = '';
+                        }
+
                         $value = "{$value} OR {$field} IS NULL)";
                         $field = "(" . $field;
                     }

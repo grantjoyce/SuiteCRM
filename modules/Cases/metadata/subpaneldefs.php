@@ -222,4 +222,3 @@ $layout_defs['Cases'] = array(
         ),
     ),
 );
-?>
