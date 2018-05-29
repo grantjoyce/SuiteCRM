@@ -26,7 +26,7 @@ class ModuleLanguageTest extends SuiteCRM\StateCheckerUnitAbstract
 
     public function testGetCurrentLanguage()
     {
-        $this->markTestIncomplete('Test changes the config ovverrides.');
+        //$this->markTestIncomplete('Test changes the config overrides.');
         
         $language = self::$language->getModuleLanguageStrings(new \SuiteCRM\Utility\CurrentLanguage(), 'Accounts');
         $this->assertNotEmpty($language);

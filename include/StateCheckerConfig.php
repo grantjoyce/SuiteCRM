@@ -105,6 +105,7 @@ class StateCheckerConfig
         '/\/travis\/build\//',
         '/\/\.idea\//',
         '/\/\nbproject\//',
+        '/\/config_override.php$/',
     ];
     
     /**

@@ -10,7 +10,7 @@ class OperatingSystemTest extends \SuiteCRM\StateCheckerUnitAbstract
 
     public function testToOsPath()
     {
-        $this->markTestIncomplete('Test changes the config overrides.');
+        //$this->markTestIncomplete('Test changes the config overrides.');
         
         $os = new \SuiteCRM\Utility\OperatingSystem();
         $simpleUnixPath = './vendor/bin/codecept';
