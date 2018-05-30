@@ -184,8 +184,8 @@ class LeadTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
 	// save state
 
         $state = new \SuiteCRM\StateSaver();
-//        $state->pushTable('aod_index');
-//        $state->pushTable('aod_indexevent');
+//        
+//        
         $state->pushTable('leads');
         $state->pushTable('leads_cstm');
         $state->pushTable('sugarfeed');
@@ -208,8 +208,8 @@ class LeadTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         $state->popTable('sugarfeed');
         $state->popTable('leads_cstm');
         $state->popTable('leads');
-//        $state->popTable('aod_indexevent');
-//        $state->popTable('aod_index');
+//        
+//        
     }
 
 

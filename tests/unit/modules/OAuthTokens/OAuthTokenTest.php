@@ -83,7 +83,7 @@ class OAuthTokenTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
 
         $state = new \SuiteCRM\StateSaver();
         $state->pushTable('tracker');
-        $state->pushTable('aod_index');
+        
 
 	// test
         
@@ -110,7 +110,7 @@ class OAuthTokenTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         // clean up
         
-        $state->popTable('aod_index');
+        
         $state->popTable('tracker');
 
 

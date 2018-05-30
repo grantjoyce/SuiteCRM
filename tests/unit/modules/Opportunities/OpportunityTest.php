@@ -215,12 +215,12 @@ class OpportunityTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
 	// save state
 
         $state = new \SuiteCRM\StateSaver();
-        $state->pushTable('aod_indexevent');
+        
         $state->pushTable('opportunities');
         $state->pushTable('opportunities_cstm');
         $state->pushTable('sugarfeed');
         $state->pushTable('tracker');
-        $state->pushTable('aod_index');
+        
         $state->pushGlobals();
 
 	// test
@@ -247,12 +247,12 @@ class OpportunityTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         // clean up
         
         $state->popGlobals();
-        $state->popTable('aod_index');
+        
         $state->popTable('tracker');
         $state->popTable('sugarfeed');
         $state->popTable('opportunities_cstm');
         $state->popTable('opportunities');
-        $state->popTable('aod_indexevent');
+        
 
     }
 

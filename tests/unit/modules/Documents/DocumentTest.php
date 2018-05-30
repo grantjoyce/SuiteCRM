@@ -32,7 +32,7 @@ class DocumentTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
     {
         $state = new SuiteCRM\StateSaver();
         
-//        $state->pushTable('aod_indexevent');
+//        
         $state->pushTable('cron_remove_documents');
         $state->pushTable('documents');
         $state->pushTable('tracker');
@@ -71,14 +71,14 @@ class DocumentTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         $state->popTable('tracker');
         $state->popTable('documents');
         $state->popTable('cron_remove_documents');
-//        $state->popTable('aod_indexevent');
+//        
         
     }
 
     public function testget_summary_text()
     {
         $state = new SuiteCRM\StateSaver();
-//        $state->pushTable('aod_indexevent');
+//        
         $state->pushTable('cron_remove_documents');
         
         
@@ -94,13 +94,13 @@ class DocumentTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         // clean up
         
         $state->popTable('cron_remove_documents');
-//        $state->popTable('aod_indexevent');
+//        
     }
 
     public function testis_authenticated()
     {
         $state = new SuiteCRM\StateSaver();
-//        $state->pushTable('aod_indexevent');
+//        
         $state->pushTable('cron_remove_documents');
         
         $document = new Document();
@@ -115,14 +115,14 @@ class DocumentTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         // clean up
         
         $state->popTable('cron_remove_documents');
-//        $state->popTable('aod_indexevent');
+//        
     }
 
     public function testfill_in_additional_list_fields()
     {
         $state = new SuiteCRM\StateSaver();
         
-//        $state->pushTable('aod_indexevent');
+//        
         $state->pushTable('cron_remove_documents');
         $state->pushGlobals();
         
@@ -144,7 +144,7 @@ class DocumentTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         $state->popGlobals();
         $state->popTable('cron_remove_documents');
-//        $state->popTable('aod_indexevent');
+//        
         
         
     }
@@ -154,7 +154,7 @@ class DocumentTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         self::markTestIncomplete('environment dependency (random generated token in url)');
         
         $state = new SuiteCRM\StateSaver();
-//        $state->pushTable('aod_indexevent');
+//        
         $state->pushTable('cron_remove_documents');
         $state->pushGlobals();
         
@@ -175,7 +175,7 @@ class DocumentTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         $state->popGlobals();
         $state->popTable('cron_remove_documents');
-//        $state->popTable('aod_indexevent');
+//        
     }
 
     public function testlist_view_parse_additional_sections()

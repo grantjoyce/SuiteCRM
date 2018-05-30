@@ -77,10 +77,10 @@ class ProjectTaskTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
 	// save state
 
         $state = new \SuiteCRM\StateSaver();
-        $state->pushTable('aod_indexevent');
+        
         $state->pushTable('project_task');
         $state->pushTable('tracker');
-        $state->pushTable('aod_index');
+        
         $state->pushGlobals();
 
 	// test
@@ -110,10 +110,10 @@ class ProjectTaskTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         // clean up
         
         $state->popGlobals();
-        $state->popTable('aod_index');
+        
         $state->popTable('tracker');
         $state->popTable('project_task');
-        $state->popTable('aod_indexevent');
+        
     }
 
     public function _get_depends_on_name($id)

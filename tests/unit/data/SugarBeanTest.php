@@ -904,7 +904,7 @@ class SugarBeanTest extends SuitePHPUnit_Framework_TestCase
 	// save state
 
         $state = new \SuiteCRM\StateSaver();
-        $state->pushTable('aod_index');
+        
         $state->pushTable('tracker');
 
 	// test
@@ -1226,7 +1226,7 @@ class SugarBeanTest extends SuitePHPUnit_Framework_TestCase
         // clean up
         
         $state->popTable('tracker');
-        $state->popTable('aod_index');
+        
 
     }
 

@@ -28,8 +28,8 @@ class DocumentRevisionTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
     {
         $state = new SuiteCRM\StateSaver();
         
-//        $state->pushTable('aod_index');
-//        $state->pushTable('aod_indexevent');
+//        
+//        
         $state->pushTable('cron_remove_documents');
         $state->pushTable('document_revisions');
         $state->pushTable('tracker');
@@ -70,16 +70,16 @@ class DocumentRevisionTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         $state->popTable('tracker');
         $state->popTable('document_revisions');
         $state->popTable('cron_remove_documents');
-//        $state->popTable('aod_indexevent');
-//        $state->popTable('aod_index');
+//        
+//        
         
     }
 
     public function testget_summary_text()
     {
         $state = new SuiteCRM\StateSaver();
-//        $state->pushTable('aod_index');
-//        $state->pushTable('aod_indexevent');
+//        
+//        
         $state->pushTable('cron_remove_documents');
         $state->pushTable('document_revisions');
         
@@ -97,15 +97,15 @@ class DocumentRevisionTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         $state->popTable('document_revisions');
         $state->popTable('cron_remove_documents');
-//        $state->popTable('aod_indexevent');
-//        $state->popTable('aod_index');
+//        
+//        
     }
 
     public function testis_authenticated()
     {
         $state = new SuiteCRM\StateSaver();
-//        $state->pushTable('aod_index');
-//        $state->pushTable('aod_indexevent');
+//        
+//        
         $state->pushTable('cron_remove_documents');
         $state->pushTable('document_revisions');
         
@@ -123,16 +123,16 @@ class DocumentRevisionTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         $state->popTable('document_revisions');
         $state->popTable('cron_remove_documents');
-//        $state->popTable('aod_indexevent');
-//        $state->popTable('aod_index');
+//        
+//        
     }
 
     public function testfill_in_additional_list_fields()
     {
         $state = new SuiteCRM\StateSaver();
         
-//        $state->pushTable('aod_index');
-//        $state->pushTable('aod_indexevent');
+//        
+//        
         $state->pushTable('cron_remove_documents');
         $state->pushTable('document_revisions');
         
@@ -153,8 +153,8 @@ class DocumentRevisionTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         $state->popTable('document_revisions');
         $state->popTable('cron_remove_documents');
-//        $state->popTable('aod_indexevent');
-//        $state->popTable('aod_index');
+//        
+//        
         
         
     }
@@ -163,7 +163,7 @@ class DocumentRevisionTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
     {
         $state = new SuiteCRM\StateSaver();
         
-//        $state->pushTable('aod_indexevent');
+//        
         $state->pushTable('cron_remove_documents');
         $state->pushTable('document_revisions');
         
@@ -184,14 +184,14 @@ class DocumentRevisionTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         $state->popTable('document_revisions');
         $state->popTable('cron_remove_documents');
-//        $state->popTable('aod_indexevent');
+//        
         
     }
 
     public function testgetDocumentRevisionNameForDisplay()
     {
         $state = new SuiteCRM\StateSaver();
-//        $state->pushTable('aod_indexevent');
+//        
         $state->pushTable('cron_remove_documents');
         $state->pushTable('document_revisions');
         
@@ -211,14 +211,14 @@ class DocumentRevisionTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         $state->popTable('document_revisions');
         $state->popTable('cron_remove_documents');
-//        $state->popTable('aod_indexevent');
+//        
     }
 
     public function testfill_document_name_revision()
     {
         $state = new SuiteCRM\StateSaver();
         
-//        $state->pushTable('aod_indexevent');
+//        
         $state->pushTable('cron_remove_documents');
         $state->pushTable('document_revisions');
         
@@ -239,7 +239,7 @@ class DocumentRevisionTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         $state->popTable('document_revisions');
         $state->popTable('cron_remove_documents');
-//        $state->popTable('aod_indexevent');
+//        
         
     }
 
@@ -247,7 +247,7 @@ class DocumentRevisionTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
     {
         $state = new SuiteCRM\StateSaver();
         
-//        $state->pushTable('aod_indexevent');
+//        
         $state->pushTable('cron_remove_documents');
         $state->pushTable('document_revisions');
         
@@ -271,14 +271,14 @@ class DocumentRevisionTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         $state->popTable('document_revisions');
         $state->popTable('cron_remove_documents');
-//        $state->popTable('aod_indexevent');
+//        
         
     }
 
     public function testget_list_view_data()
     {
         $state = new SuiteCRM\StateSaver();
-//        $state->pushTable('aod_indexevent');
+//        
         $state->pushTable('cron_remove_documents');
         $state->pushTable('document_revisions');
         
@@ -291,13 +291,13 @@ class DocumentRevisionTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         $state->popTable('document_revisions');
         $state->popTable('cron_remove_documents');
-//        $state->popTable('aod_indexevent');
+//        
     }
 
     public function testget_document_revision_name()
     {
         $state = new SuiteCRM\StateSaver();
-//        $state->pushTable('aod_indexevent');
+//        
         $state->pushTable('cron_remove_documents');
         $state->pushTable('document_revisions');
         
@@ -309,13 +309,13 @@ class DocumentRevisionTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         $state->popTable('document_revisions');
         $state->popTable('cron_remove_documents');
-//        $state->popTable('aod_indexevent');
+//        
     }
 
     public function testget_document_revisions()
     {
         $state = new SuiteCRM\StateSaver();
-//        $state->pushTable('aod_indexevent');
+//        
         $state->pushTable('cron_remove_documents');
         $state->pushTable('document_revisions');
         
@@ -327,13 +327,13 @@ class DocumentRevisionTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         $state->popTable('document_revisions');
         $state->popTable('cron_remove_documents');
-//        $state->popTable('aod_indexevent');
+//        
     }
 
     public function testbean_implements()
     {
         $state = new SuiteCRM\StateSaver();
-//        $state->pushTable('aod_indexevent');
+//        
         $state->pushTable('cron_remove_documents');
         $state->pushTable('document_revisions');
         
@@ -346,6 +346,6 @@ class DocumentRevisionTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         $state->popTable('document_revisions');
         $state->popTable('cron_remove_documents');
-//        $state->popTable('aod_indexevent');
+//        
     }
 }

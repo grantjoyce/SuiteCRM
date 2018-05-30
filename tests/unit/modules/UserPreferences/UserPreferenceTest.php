@@ -17,7 +17,7 @@ class UserPreferenceTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
 	// save state
 
         $state = new \SuiteCRM\StateSaver();
-        $state->pushTable('aod_index');
+        
         $state->pushGlobals();
 
 	// test
@@ -32,7 +32,7 @@ class UserPreferenceTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
 
         // clean up
         
-        $state->popTable('aod_index');
+        
         $state->popGlobals();
 
     }
@@ -42,7 +42,7 @@ class UserPreferenceTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
 	// save state
 
         $state = new \SuiteCRM\StateSaver();
-        $state->pushTable('aod_index');
+        
         $state->pushGlobals();
 
 	// test
@@ -76,7 +76,7 @@ class UserPreferenceTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         // clean up
         
-        $state->popTable('aod_index');
+        
         $state->popGlobals();
     }
     
@@ -85,7 +85,7 @@ class UserPreferenceTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
 	// save state
 
         $state = new \SuiteCRM\StateSaver();
-        $state->pushTable('aod_index');
+        
 
 	// test
         
@@ -118,7 +118,7 @@ class UserPreferenceTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         // clean up
         
-        $state->popTable('aod_index');
+        
     }
 
     public function test__construct()
@@ -126,7 +126,7 @@ class UserPreferenceTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
 	// save state
 
         $state = new \SuiteCRM\StateSaver();
-        $state->pushTable('aod_index');
+        
 
 	// test
         
@@ -145,7 +145,7 @@ class UserPreferenceTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         // clean up
         
-        $state->popTable('aod_index');
+        
     }
 
     public function testreloadPreferences()
@@ -203,7 +203,7 @@ class UserPreferenceTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         $state = new \SuiteCRM\StateSaver();
         $state->pushTable('email_addresses');
         $state->pushTable('user_preferences');
-        $state->pushTable('aod_index');
+        
         $state->pushTable('tracker');
         $state->pushGlobals();
 
@@ -239,7 +239,7 @@ class UserPreferenceTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         $state->popGlobals();
         $state->popTable('tracker');
-        $state->popTable('aod_index');
+        
         $state->popTable('user_preferences');
         $state->popTable('email_addresses');
 

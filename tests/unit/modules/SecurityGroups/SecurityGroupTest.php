@@ -330,7 +330,7 @@ class SecurityGroupTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
 	// save state
 
         $state = new \SuiteCRM\StateSaver();
-        $state->pushTable('aod_index');
+        
         $state->pushTable('securitygroups');
         $state->pushTable('tracker');
 
@@ -375,7 +375,7 @@ class SecurityGroupTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         $state->popTable('tracker');
         $state->popTable('securitygroups');
-        $state->popTable('aod_index');
+        
 
     }
 

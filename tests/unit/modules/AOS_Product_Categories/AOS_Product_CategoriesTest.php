@@ -31,8 +31,8 @@ class AOS_Product_CategoriesTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbs
     public function testsave()
     {
         $state = new SuiteCRM\StateSaver();
-//        $state->pushTable('aod_index');
-//        $state->pushTable('aod_indexevent');
+//        
+//        
         $state->pushTable('aos_product_categories');
         $state->pushTable('tracker');
         $state->pushGlobals();
@@ -59,7 +59,7 @@ class AOS_Product_CategoriesTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbs
         $state->popGlobals();
         $state->popTable('tracker');
         $state->popTable('aos_product_categories');
-//        $state->popTable('aod_indexevent');
-//        $state->popTable('aod_index');
+//        
+//        
     }
 }

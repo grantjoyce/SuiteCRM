@@ -88,8 +88,8 @@ class MeetingTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
 	// save state
 
         $state = new \SuiteCRM\StateSaver();
-//        $state->pushTable('aod_index');
-//        $state->pushTable('aod_indexevent');
+//        
+//        
         $state->pushTable('meetings');
         $state->pushTable('meetings_contacts');
         $state->pushTable('meetings_cstm');
@@ -151,8 +151,8 @@ class MeetingTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         $state->popTable('meetings_cstm');
         $state->popTable('meetings_contacts');
         $state->popTable('meetings');
-//        $state->popTable('aod_indexevent');
-//        $state->popTable('aod_index');
+//        
+//        
 
     }
 

@@ -24,8 +24,8 @@ class AOR_FieldTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
     public function testsave_lines()
     {
         $state = new SuiteCRM\StateSaver();
-        //$state->pushTable('aod_index');
-        //$state->pushTable('aod_indexevent');
+        //
+        //
         $state->pushTable('aor_fields');
         $state->pushTable('tracker');
         $state->pushGlobals();
@@ -61,7 +61,7 @@ class AOR_FieldTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         $state->popGlobals();
         $state->popTable('tracker');
         $state->popTable('aor_fields');
-        //$state->popTable('aod_indexevent');
-        //$state->popTable('aod_index');
+        //
+        //
     }
 }

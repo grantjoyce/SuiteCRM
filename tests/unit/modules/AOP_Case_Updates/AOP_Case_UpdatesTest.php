@@ -36,8 +36,8 @@ class AOP_Case_UpdatesTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         $state = new SuiteCRM\StateSaver();
         $state->pushTable('acl_actions');
-        $state->pushTable('aod_index');
-        $state->pushTable('aod_indexevent');
+        
+        
         $state->pushTable('aop_case_updates');
         $state->pushGlobals();
         
@@ -61,8 +61,8 @@ class AOP_Case_UpdatesTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         $state->popGlobals();
         $state->popTable('aop_case_updates');
-        $state->popTable('aod_indexevent');
-        $state->popTable('aod_index');
+        
+        
         $state->popTable('acl_actions');
     }
 

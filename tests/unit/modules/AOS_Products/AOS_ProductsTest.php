@@ -32,7 +32,7 @@ class AOS_ProductsTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
     {
         $state = new SuiteCRM\StateSaver();
         $state->pushTable('aos_products');
-//        $state->pushTable('aod_index');
+//        
         $state->pushTable('tracker');
         $state->pushGlobals();
         
@@ -61,7 +61,7 @@ class AOS_ProductsTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         $state->popGlobals();
         $state->popTable('tracker');
-//        $state->popTable('aod_index');
+//        
         $state->popTable('aos_products');
     }
 

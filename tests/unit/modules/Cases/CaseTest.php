@@ -67,7 +67,7 @@ class aCaseTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
     public function testsave_relationship_changes()
     {
         $state = new SuiteCRM\StateSaver();
-//        $state->pushTable('aod_indexevent');
+//        
         
         //error_reporting(E_ERROR | E_PARSE);
         
@@ -86,7 +86,7 @@ class aCaseTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         // clean up
         
-//        $state->popTable('aod_indexevent');
+//        
     }
 
     public function testset_case_contact_relationship()
@@ -256,7 +256,7 @@ class aCaseTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
     public function testsave()
     {
         $state = new SuiteCRM\StateSaver();
-//        $state->pushTable('aod_indexevent');
+//        
         $state->pushTable('aop_case_events');
         $state->pushTable('cases');
         $state->pushTable('sugarfeed');
@@ -285,7 +285,7 @@ class aCaseTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         $state->popTable('sugarfeed');
         $state->popTable('cases');
         $state->popTable('aop_case_events');
-//        $state->popTable('aod_indexevent');
+//        
     }
 
     public function testgetEmailSubjectMacro()

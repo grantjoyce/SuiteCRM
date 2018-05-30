@@ -48,7 +48,7 @@ class EmailTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
 	// save state
 
         $state = new \SuiteCRM\StateSaver();
-//        $state->pushTable('aod_indexevent');
+//        
 
 	// test
         
@@ -59,7 +59,7 @@ class EmailTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         // clean up
         
-//        $state->popTable('aod_indexevent');
+//        
     }
 
     public function testemail2saveAttachment()
@@ -224,7 +224,7 @@ class EmailTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         $state->pushTable('emails_email_addr_rel');
         $state->pushTable('emails_text');
         $state->pushTable('tracker');
-//        $state->pushTable('aod_index');
+//        
         $state->pushGlobals();
 
 	// test
@@ -276,7 +276,7 @@ class EmailTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         // clean up
         
         $state->popGlobals();
-//        $state->popTable('aod_index');
+//        
         $state->popTable('tracker');
         $state->popTable('emails_text');
         $state->popTable('emails_email_addr_rel');

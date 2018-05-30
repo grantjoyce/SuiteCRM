@@ -30,7 +30,7 @@ class GroupTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         self::markTestIncomplete('environment dependency (php7: Incorrect state hash: Hash doesn\'t match at key "database::users".)');
         
         $state = new SuiteCRM\StateSaver();
-        $state->pushTable('aod_index');
+        
         $state->pushTable('tracker');
         $state->pushTable('users');
         
@@ -50,7 +50,7 @@ class GroupTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         $state->popTable('users');
         $state->popTable('tracker');
-        $state->popTable('aod_index');
+        
     }
 
     public function testcreate_export_query()

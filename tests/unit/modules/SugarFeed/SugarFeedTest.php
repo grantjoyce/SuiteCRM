@@ -137,7 +137,7 @@ class SugarFeedTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
 	// save state
 
         $state = new \SuiteCRM\StateSaver();
-        $state->pushTable('aod_index');
+        
         $state->pushTable('sugarfeed');
 
 	// test
@@ -162,7 +162,7 @@ class SugarFeedTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         // clean up
         
         $state->popTable('sugarfeed');
-        $state->popTable('aod_index');
+        
 
 
     }

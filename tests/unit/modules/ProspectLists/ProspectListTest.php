@@ -110,8 +110,8 @@ class ProspectListTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
 	// save state
 
         $state = new \SuiteCRM\StateSaver();
-        $state->pushTable('aod_index');
-        $state->pushTable('aod_indexevent');
+        
+        
         $state->pushTable('prospect_lists');
         $state->pushTable('tracker');
         $state->pushGlobals();
@@ -148,8 +148,8 @@ class ProspectListTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         $state->popGlobals();
         $state->popTable('tracker');
         $state->popTable('prospect_lists');
-        $state->popTable('aod_indexevent');
-        $state->popTable('aod_index');
+        
+        
 
 
 	}

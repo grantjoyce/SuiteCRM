@@ -18,7 +18,7 @@ class security_utilsTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         $state = new SuiteCRM\StateSaver();
         $state->pushGlobals();
-        $state->pushTable('aod_indexevent');
+        
         
         //execute the method and test it it returns expected contents
 
@@ -68,7 +68,7 @@ class security_utilsTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         // clean up
         
-        $state->popTable('aod_indexevent');
+        
         $state->popGlobals();
     }
 

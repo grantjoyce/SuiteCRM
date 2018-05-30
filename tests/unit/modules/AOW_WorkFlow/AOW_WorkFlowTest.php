@@ -49,9 +49,9 @@ class AOW_WorkFlowTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
     {
         $state = new SuiteCRM\StateSaver();
         $state->pushTable('aow_conditions');
-//        $state->pushTable('aod_indexevent');
+//        
         $state->pushTable('aow_workflow');
-//        $state->pushTable('aod_index');
+//        
         $state->pushTable('tracker');
         $state->pushGlobals();
         
@@ -76,9 +76,9 @@ class AOW_WorkFlowTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         $state->popGlobals();
         $state->popTable('tracker');
-//        $state->popTable('aod_index');
+//        
         $state->popTable('aow_workflow');
-//        $state->popTable('aod_indexevent');
+//        
         $state->popTable('aow_conditions');
     }
 

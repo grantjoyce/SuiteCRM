@@ -34,10 +34,10 @@ class AOS_ContractsTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
     {
         $state = new SuiteCRM\StateSaver();
         
-//        $state->pushTable('aod_indexevent');
+//        
         $state->pushTable('aos_contracts');
         $state->pushTable('tracker');
-//        $state->pushTable('aod_index');
+//        
         $state->pushGlobals();
         
         //error_reporting(E_ERROR | E_PARSE);
@@ -59,17 +59,17 @@ class AOS_ContractsTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         // clean up
         
         $state->popGlobals();
-//        $state->popTable('aod_index');
+//        
         $state->popTable('tracker');
         $state->popTable('aos_contracts');
-//        $state->popTable('aod_indexevent');
+//        
         
     }
 
     public function testCreateReminderAndCreateLinkAndDeleteCall()
     {
         $state = new SuiteCRM\StateSaver();
-//        $state->pushTable('aod_indexevent');
+//        
         $state->pushTable('calls');
         $state->pushTable('vcals');
         $state->pushTable('tracker');
@@ -107,6 +107,6 @@ class AOS_ContractsTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         $state->popTable('tracker');
         $state->popTable('vcals');
         $state->popTable('calls');
-//        $state->popTable('aod_indexevent');
+//        
     }
 }
