@@ -217,7 +217,7 @@ class OpportunityTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         $state = new \SuiteCRM\StateSaver();
         
         $state->pushTable('opportunities');
-        $state->pushTable('opportunities_cstm');
+//        $state->pushTable('opportunities_cstm');
         $state->pushTable('sugarfeed');
         $state->pushTable('tracker');
         
@@ -250,7 +250,7 @@ class OpportunityTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         $state->popTable('tracker');
         $state->popTable('sugarfeed');
-        $state->popTable('opportunities_cstm');
+//        $state->popTable('opportunities_cstm');
         $state->popTable('opportunities');
         
 

@@ -413,7 +413,6 @@ class SecurityGroupTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
             'Prospects',
             'ACLRoles',
             'AOS_Product_Categories',
-            'Spots' => 'Spots',
             'SurveyQuestionOptions' => 'SurveyQuestionOptions',
             'SurveyQuestionResponses' => 'SurveyQuestionResponses',
             'SurveyQuestions' => 'SurveyQuestions',
