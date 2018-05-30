@@ -300,20 +300,6 @@ class MergeRecordTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         $this->assertSame($expected, $result);
     }
 
-    public function testrelease_name_query()
-    {
-
-        $mergeRecord = new MergeRecord();
-
-        //test with type = like
-        $result = $mergeRecord->release_name_query('like', 'test');
-        $this->assertSame('', $result);
-
-        //test with type = start
-        $result = $mergeRecord->release_name_query('start', 'test');
-        $this->assertSame('', $result);
-    }
-
     public function testcreate_where_statement()
     {
         self::markTestIncomplete('Test failing since commit a5acea613 applied php7fix patch');

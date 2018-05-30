@@ -187,7 +187,7 @@ class LeadTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
 //        
 //        
         $state->pushTable('leads');
-        $state->pushTable('leads_cstm');
+        
         $state->pushTable('sugarfeed');
         $state->pushTable('tracker');
 
@@ -206,7 +206,7 @@ class LeadTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         $state->popTable('tracker');
         $state->popTable('sugarfeed');
-        $state->popTable('leads_cstm');
+        
         $state->popTable('leads');
 //        
 //        
@@ -296,7 +296,6 @@ class LeadTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
             'emails',
             'campaigns',
             'prospect_lists',
-            'fp_events_leads_1',
             'SecurityGroups',
         );
         $actual = $lead->get_linked_fields();

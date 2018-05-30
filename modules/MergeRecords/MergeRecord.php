@@ -310,30 +310,6 @@ class MergeRecord extends SugarBean
     }
 
     /**
-     * @param $search_type
-     * @param $value
-     * @return string
-     */
-    public function release_name_query($search_type, $value)
-    {
-        $this->load_merge_bean2('Releases');
-        if ($search_type == 'like') {
-            $where = "releases.name LIKE '%".DBManagerFactory::getInstance()->quote($value)."%'";
-        } elseif ($search_type == 'start') {
-            $where = "releases.name LIKE '".DBManagerFactory::getInstance()->quote($value)."%'";
-        } else {
-            $where = "releases.name = '".DBManagerFactory::getInstance()->quote($value)."'";
-        }
-        $list = $this->merge_bean2->get_releases(false, 'Active', $where);
-        $list_to_join = array();
-        foreach ($list as $key => $value) {
-            $list_to_join[] = "'".DBManagerFactory::getInstance()->quote($key)."'";
-        }
-
-        return implode(', ', $list_to_join);
-    }
-
-    /**
      * @return array
      */
     public function create_where_statement()

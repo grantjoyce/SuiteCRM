@@ -92,7 +92,7 @@ class MeetingTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
 //        
         $state->pushTable('meetings');
         $state->pushTable('meetings_contacts');
-        $state->pushTable('meetings_cstm');
+        
         $state->pushTable('meetings_leads');
         $state->pushTable('meetings_users');
         $state->pushTable('vcals');
@@ -148,7 +148,7 @@ class MeetingTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         $state->popTable('vcals');
         $state->popTable('meetings_users');
         $state->popTable('meetings_leads');
-        $state->popTable('meetings_cstm');
+        
         $state->popTable('meetings_contacts');
         $state->popTable('meetings');
 //        
