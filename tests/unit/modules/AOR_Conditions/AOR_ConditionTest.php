@@ -23,8 +23,8 @@ class AOR_ConditionTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
     public function testsave_lines()
     {
         $state = new SuiteCRM\StateSaver();
-        $state->pushTable('aod_indexevent');
-        $state->pushTable('aod_index');
+        //$state->pushTable('aod_indexevent');
+        //$state->pushTable('aod_index');
         $state->pushTable('aor_conditions');
         $state->pushTable('tracker');
         $state->pushGlobals();
@@ -55,7 +55,7 @@ class AOR_ConditionTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         $state->popGlobals();
         $state->popTable('tracker');
         $state->popTable('aor_conditions');
-        $state->popTable('aod_index');
-        $state->popTable('aod_indexevent');
+        //$state->popTable('aod_index');
+        //$state->popTable('aod_indexevent');
     }
 }

@@ -245,8 +245,8 @@ class CampaignTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
 	// save state
 
         $state = new \SuiteCRM\StateSaver();
-        $state->pushTable('aod_index');
-        $state->pushTable('aod_indexevent');
+//        $state->pushTable('aod_index');
+//        $state->pushTable('aod_indexevent');
         $state->pushTable('campaigns');
         $state->pushTable('tracker');
         $state->pushGlobals();
@@ -273,8 +273,8 @@ class CampaignTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         $state->popGlobals();
         $state->popTable('tracker');
         $state->popTable('campaigns');
-        $state->popTable('aod_indexevent');
-        $state->popTable('aod_index');
+//        $state->popTable('aod_indexevent');
+//        $state->popTable('aod_index');
     }
 
     public function testset_notification_body()

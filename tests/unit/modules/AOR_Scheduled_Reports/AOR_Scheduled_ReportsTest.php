@@ -16,7 +16,7 @@ class AOR_Scheduled_ReportsTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbst
             $state = new SuiteCRM\StateSaver();
             $state->pushTable('aor_scheduled_reports');
             $state->pushTable('tracker');
-            $state->pushTable('aod_index');
+//            $state->pushTable('aod_index');
             $state->pushGlobals();
 
 		$aorScheduledReports = new AOR_Scheduled_Reports();
@@ -48,7 +48,7 @@ class AOR_Scheduled_ReportsTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbst
                 
             $state->popGlobals();
             $state->popTable('tracker');
-            $state->popTable('aod_index');
+//            $state->popTable('aod_index');
             $state->popTable('aor_scheduled_reports');
     }
     

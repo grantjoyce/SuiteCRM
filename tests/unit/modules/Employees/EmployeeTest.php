@@ -122,7 +122,7 @@ class EmployeeTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
 	// save state
 
         $state = new \SuiteCRM\StateSaver();
-        $state->pushTable('aod_index');
+//        $state->pushTable('aod_index');
         $state->pushTable('email_addresses');
         $state->pushTable('tracker');
         
@@ -156,7 +156,7 @@ class EmployeeTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         $state->popTable('tracker');
         $state->popTable('email_addresses');
-        $state->popTable('aod_index');
+//        $state->popTable('aod_index');
     }
 
     public function testlist_view_parse_additional_sections()

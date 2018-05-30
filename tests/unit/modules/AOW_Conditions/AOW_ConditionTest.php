@@ -50,7 +50,7 @@ class AOW_ConditionTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
     {
         $state = new SuiteCRM\StateSaver();
         $state->pushTable('aow_conditions');
-        $state->pushTable('aod_indexevent');
+//        $state->pushTable('aod_indexevent');
         
         $aowCondition = new AOW_Condition();
 
@@ -79,7 +79,7 @@ class AOW_ConditionTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         // clean up
         
-        $state->popTable('aod_indexevent');
+//        $state->popTable('aod_indexevent');
         $state->popTable('aow_conditions');
     }
 }

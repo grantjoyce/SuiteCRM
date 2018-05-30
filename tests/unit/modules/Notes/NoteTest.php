@@ -57,7 +57,7 @@ class NoteTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
     {
         $state = new SuiteCRM\StateSaver();
         
-        $state->pushTable('aod_index');
+//        $state->pushTable('aod_index');
         $state->pushTable('tracker');
         
         //error_reporting(E_ERROR | E_PARSE);
@@ -76,7 +76,7 @@ class NoteTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         // clean up
         
         $state->popTable('tracker');
-        $state->popTable('aod_index');
+//        $state->popTable('aod_index');
         
     }
 

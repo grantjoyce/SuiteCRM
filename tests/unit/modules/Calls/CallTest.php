@@ -59,8 +59,8 @@ class CallTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
 	// save state
 
         $state = new \SuiteCRM\StateSaver();
-        $state->pushTable('aod_index');
-        $state->pushTable('aod_indexevent');
+//        $state->pushTable('aod_index');
+//        $state->pushTable('aod_indexevent');
         $state->pushTable('calls');
         $state->pushTable('tracker');
         $state->pushTable('vcals');
@@ -88,8 +88,8 @@ class CallTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         $state->popTable('vcals');
         $state->popTable('tracker');
         $state->popTable('calls');
-        $state->popTable('aod_indexevent');
-        $state->popTable('aod_index');
+//        $state->popTable('aod_indexevent');
+//        $state->popTable('aod_index');
     }
 
     public function testget_contacts()
