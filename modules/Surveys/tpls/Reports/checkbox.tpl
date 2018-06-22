@@ -23,7 +23,7 @@
           title: '{/literal}{$question.name}{literal}',
           textSize: 10,
           titleSize: 10,
-          colors: ['#f08377', '#534d64', '#778591', '#bfcad3', '#d8f5ee'],
+          colors: ['#f08377', '#196579', '#778591', '#bfcad3', '#d8f5ee'],
           tooltips: function (ind) {
             return chartLabels[ind] + " - " + chartData[ind];
           },
