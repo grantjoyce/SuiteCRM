@@ -19,7 +19,7 @@
  * or write to the Free Software Foundation,Inc., 51 Franklin Street,
  * Fifth Floor, Boston, MA 02110-1301  USA
  *
- * @author Salesagility Ltd <support@salesagility.com>
+ * @author SalesAgility Ltd <support@salesagility.com>
  */
 if(!defined('sugarEntry'))define('sugarEntry', true);
 
@@ -96,7 +96,7 @@ try {
                         }
 
                         $wbsv = file_get_contents($url);
-                        $res = json_decode($wbsv);
+    $res = json_decode($wbsv);
                         if (json_last_error() != JSON_ERROR_NONE) {
                             $json_msg = json_last_error();
                             if ($json_msg) {
@@ -107,8 +107,8 @@ try {
                         // append portal to messages
                         if (!isset($res->success) || !$res->success) {
                             $msg = $res->error ? $res->error : $mod_strings['LBL_DISABLE_PORTAL_USER_FAILED'] . " ($portalURL)";
-                            SugarApplication::appendErrorMessage($msg);
-                        } else {
+        SugarApplication::appendErrorMessage($msg);
+    } else {
                             $jaList[0]->portal_account_disabled = 1;
                             $jaList[0]->save(false);
                             SugarApplication::appendErrorMessage($mod_strings['LBL_DISABLE_PORTAL_USER_SUCCESS'] . " ($portalURL)");
@@ -116,10 +116,10 @@ try {
                     }
                 }
             }
-        }
-    } else {
-        SugarApplication::appendErrorMessage($mod_strings['LBL_NO_JOOMLA_URL']);
     }
+} else {
+    SugarApplication::appendErrorMessage($mod_strings['LBL_NO_JOOMLA_URL']);
+}
 
 } catch(AOPContactUtilsException $e) {
     $eCode = $e->getCode();

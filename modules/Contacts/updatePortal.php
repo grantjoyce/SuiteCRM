@@ -5,7 +5,7 @@
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
  * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
- * Copyright (C) 2011 - 2016 SalesAgility Ltd.
+ * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Affero General Public License version 3 as published by the
@@ -16,7 +16,7 @@
  *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License for more
+ * FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
  * details.
  *
  * You should have received a copy of the GNU Affero General Public License along with
@@ -34,8 +34,8 @@
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
  * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
- * reasonably feasible for  technical reasons, the Appropriate Legal Notices must
- * display the words  "Powered by SugarCRM" and "Supercharged by SuiteCRM".
+ * reasonably feasible for technical reasons, the Appropriate Legal Notices must
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 if (!defined('sugarEntry') || !sugarEntry) {
@@ -75,27 +75,26 @@ class updatePortal
                 $GLOBALS['log']->fatal("Error occured when trying to get REST requested JAccount (check name-value list or request data)");
             }
 
-            if (!isAOPEnabled()) {
+        if (!isAOPEnabled()) {
                 $GLOBALS['log']->fatal("AOP is not enabled");
                 return false;
-            }
+        }
+        if (isset($bean->joomla_account_access) && $bean->joomla_account_access !== '') {
+            global $sugar_config;
+            $aop_config = $sugar_config['aop'];
 
-            if (isset($bean->joomla_account_access) && $bean->joomla_account_access !== '') {
-                global $sugar_config;
-                $aop_config = $sugar_config['aop'];
+            $template = BeanFactory::getBean('EmailTemplates', $aop_config['joomla_account_creation_email_template_id']);
 
-                $template = BeanFactory::getBean('EmailTemplates',$aop_config['joomla_account_creation_email_template_id']);
-
-                $search = array("\$joomla_pass", "\$portal_address");
+            $search = array("\$joomla_pass", "\$portal_address");
                 // TODO: check which joomla url need for us to send because since it's multiple it does not make sense
                 $replace = array($bean->joomla_account_access, isset($selectedPortalUrl) ? $selectedPortalUrl : $aop_config['joomla_urls']);
 
-                $object_arr['Contacts'] = $bean->id;
-                $body_html = aop_parse_template($template->body_html, $object_arr);
-                $body_html = str_replace($search, $replace, $body_html);
+            $object_arr['Contacts'] = $bean->id;
+            $body_html = aop_parse_template($template->body_html, $object_arr);
+            $body_html = str_replace($search, $replace, $body_html);
 
-                $body_plain = aop_parse_template($template->body, $object_arr);
-                $body_plain = str_replace($search, $replace, $body_plain);
+            $body_plain = aop_parse_template($template->body, $object_arr);
+            $body_plain = str_replace($search, $replace, $body_plain);
 
                 try {
                     $ok = $this->sendEmail($bean->email1, $template->subject, $body_html, $body_plain, $bean);
@@ -105,7 +104,7 @@ class updatePortal
                 } catch (phpmailerException $e) {
                     $ok = false;
                     $GLOBALS['log']->fatal("phpmailer exception: ".$e->getMessage());
-                }
+        }
                 return $ok;
             }
         }
@@ -132,6 +131,7 @@ class updatePortal
         $mail = new SugarPHPMailer();
         $mail->setMailerForSystem();
         $mail->From = $emailSettings['from_address'];
+        isValidEmailAddress($mail->From);
         $mail->FromName = $emailSettings['from_name'];
         $mail->clearAllRecipients();
         $mail->clearReplyTos();
@@ -151,11 +151,11 @@ class updatePortal
             $emailObj->description = $mail->AltBody;
             $emailObj->description_html = $mail->Body;
             $emailObj->from_addr_name = $mail->From;
-            if ($relatedBean instanceOf SugarBean && !empty($relatedBean->id)) {
+            if ($relatedBean instanceof SugarBean && !empty($relatedBean->id)) {
                 $emailObj->parent_type = $relatedBean->module_dir;
                 $emailObj->parent_id = $relatedBean->id;
             }
-            $emailObj->date_sent = TimeDate::getInstance()->nowDb();
+            $emailObj->date_sent_received = TimeDate::getInstance()->nowDb();
             $emailObj->modified_user_id = '1';
             $emailObj->created_by = '1';
             $emailObj->status = 'sent';

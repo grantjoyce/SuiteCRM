@@ -28,14 +28,14 @@ class DocumentRevisionTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
     {
         $state = new SuiteCRM\StateSaver();
         
-//        
-//        
+//
+//
         $state->pushTable('cron_remove_documents');
         $state->pushTable('document_revisions');
         $state->pushTable('tracker');
         $state->pushGlobals();
         
-        //error_reporting(E_ERROR | E_PARSE);
+        
 
         $documentRevision = new DocumentRevision();
 
@@ -70,16 +70,16 @@ class DocumentRevisionTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         $state->popTable('tracker');
         $state->popTable('document_revisions');
         $state->popTable('cron_remove_documents');
-//        
-//        
-        
+//
+//
+
     }
 
     public function testget_summary_text()
     {
         $state = new SuiteCRM\StateSaver();
-//        
-//        
+//
+//
         $state->pushTable('cron_remove_documents');
         $state->pushTable('document_revisions');
         
@@ -97,15 +97,15 @@ class DocumentRevisionTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         $state->popTable('document_revisions');
         $state->popTable('cron_remove_documents');
-//        
-//        
+//
+//
     }
 
     public function testis_authenticated()
     {
         $state = new SuiteCRM\StateSaver();
-//        
-//        
+//
+//
         $state->pushTable('cron_remove_documents');
         $state->pushTable('document_revisions');
         
@@ -123,20 +123,20 @@ class DocumentRevisionTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         $state->popTable('document_revisions');
         $state->popTable('cron_remove_documents');
-//        
-//        
+//
+//
     }
 
     public function testfill_in_additional_list_fields()
     {
         $state = new SuiteCRM\StateSaver();
         
-//        
-//        
+//
+//
         $state->pushTable('cron_remove_documents');
         $state->pushTable('document_revisions');
         
-        //error_reporting(E_ERROR | E_PARSE);
+        
         
         
         $documentRevision = new DocumentRevision();
@@ -153,26 +153,26 @@ class DocumentRevisionTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         $state->popTable('document_revisions');
         $state->popTable('cron_remove_documents');
-//        
-//        
-        
-        
+//
+//
+
+
     }
 
     public function testfill_in_additional_detail_fields()
     {
         $state = new SuiteCRM\StateSaver();
         
-//        
+//
         $state->pushTable('cron_remove_documents');
         $state->pushTable('document_revisions');
         
-        //error_reporting(E_ERROR | E_PARSE);
+        
         
         
         $documentRevision = new DocumentRevision();
 
-            //execute the method and test if it works and does not throws an exception.
+        //execute the method and test if it works and does not throws an exception.
         try {
             $documentRevision->fill_in_additional_detail_fields();
             $this->assertTrue(true);
@@ -184,14 +184,14 @@ class DocumentRevisionTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         $state->popTable('document_revisions');
         $state->popTable('cron_remove_documents');
-//        
-        
+//
+
     }
 
     public function testgetDocumentRevisionNameForDisplay()
     {
         $state = new SuiteCRM\StateSaver();
-//        
+//
         $state->pushTable('cron_remove_documents');
         $state->pushTable('document_revisions');
         
@@ -211,18 +211,18 @@ class DocumentRevisionTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         $state->popTable('document_revisions');
         $state->popTable('cron_remove_documents');
-//        
+//
     }
 
     public function testfill_document_name_revision()
     {
         $state = new SuiteCRM\StateSaver();
         
-//        
+//
         $state->pushTable('cron_remove_documents');
         $state->pushTable('document_revisions');
         
-        //error_reporting(E_ERROR | E_PARSE);
+        
         
         
         $documentRevision = new DocumentRevision();
@@ -239,19 +239,19 @@ class DocumentRevisionTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         $state->popTable('document_revisions');
         $state->popTable('cron_remove_documents');
-//        
-        
+//
+
     }
 
     public function testlist_view_parse_additional_sections()
     {
         $state = new SuiteCRM\StateSaver();
         
-//        
+//
         $state->pushTable('cron_remove_documents');
         $state->pushTable('document_revisions');
         
-        //error_reporting(E_ERROR | E_PARSE);
+        
         
         
         $documentRevision = new DocumentRevision();
@@ -271,14 +271,14 @@ class DocumentRevisionTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         $state->popTable('document_revisions');
         $state->popTable('cron_remove_documents');
-//        
-        
+//
+
     }
 
     public function testget_list_view_data()
     {
         $state = new SuiteCRM\StateSaver();
-//        
+//
         $state->pushTable('cron_remove_documents');
         $state->pushTable('document_revisions');
         
@@ -291,13 +291,13 @@ class DocumentRevisionTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         $state->popTable('document_revisions');
         $state->popTable('cron_remove_documents');
-//        
+//
     }
 
     public function testget_document_revision_name()
     {
         $state = new SuiteCRM\StateSaver();
-//        
+//
         $state->pushTable('cron_remove_documents');
         $state->pushTable('document_revisions');
         
@@ -309,13 +309,13 @@ class DocumentRevisionTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         $state->popTable('document_revisions');
         $state->popTable('cron_remove_documents');
-//        
+//
     }
 
     public function testget_document_revisions()
     {
         $state = new SuiteCRM\StateSaver();
-//        
+//
         $state->pushTable('cron_remove_documents');
         $state->pushTable('document_revisions');
         
@@ -327,13 +327,13 @@ class DocumentRevisionTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         $state->popTable('document_revisions');
         $state->popTable('cron_remove_documents');
-//        
+//
     }
 
     public function testbean_implements()
     {
         $state = new SuiteCRM\StateSaver();
-//        
+//
         $state->pushTable('cron_remove_documents');
         $state->pushTable('document_revisions');
         
@@ -346,6 +346,6 @@ class DocumentRevisionTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         $state->popTable('document_revisions');
         $state->popTable('cron_remove_documents');
-//        
+//
     }
 }

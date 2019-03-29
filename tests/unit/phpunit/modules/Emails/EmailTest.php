@@ -1,8 +1,56 @@
 <?php
+/**
+ *
+ * SugarCRM Community Edition is a customer relationship management program developed by
+ * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
+ *
+ * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
+ * Copyright (C) 2011 - 2018 SalesAgility Ltd.
+ *
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Affero General Public License version 3 as published by the
+ * Free Software Foundation with the addition of the following permission added
+ * to Section 15 as permitted in Section 7(a): FOR ANY PART OF THE COVERED WORK
+ * IN WHICH THE COPYRIGHT IS OWNED BY SUGARCRM, SUGARCRM DISCLAIMS THE WARRANTY
+ * OF NON INFRINGEMENT OF THIRD PARTY RIGHTS.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU Affero General Public License along with
+ * this program; if not, see http://www.gnu.org/licenses or write to the Free
+ * Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+ * 02110-1301 USA.
+ *
+ * You can contact SugarCRM, Inc. headquarters at 10050 North Wolfe Road,
+ * SW2-130, Cupertino, CA 95014, USA. or at email address contact@sugarcrm.com.
+ *
+ * The interactive user interfaces in modified source and object code versions
+ * of this program must display Appropriate Legal Notices, as required under
+ * Section 5 of the GNU Affero General Public License version 3.
+ *
+ * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
+ * these Appropriate Legal Notices must retain the display of the "Powered by
+ * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
+ * reasonably feasible for technical reasons, the Appropriate Legal Notices must
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
+ */
 
-require_once 'include/phpmailer/class.smtp.php';
+use SuiteCRM\StateCheckerPHPUnitTestCaseAbstract;
+use SuiteCRM\StateSaver;
 
-class EmailTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
+if (!defined('sugarEntry') || !sugarEntry) {
+    die('Not A Valid Entry Point');
+}
+
+require_once __DIR__ . '/../../../../../include/phpmailer/class.smtp.php';
+require_once __DIR__ . '/SugarPHPMailerMock.php';
+require_once __DIR__ . '/NonGmailSentFolderHandlerMock.php';
+require_once __DIR__ . '/EmailMock.php';
+
+class EmailTest extends StateCheckerPHPUnitTestCaseAbstract
 {
     public function setUp()
     {
@@ -11,6 +59,255 @@ class EmailTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         global $current_user;
         get_sugar_config_defaults();
         $current_user = new User();
+    }
+    
+    /**
+     *
+     * @return StateSaver
+     */
+    protected function storeState()
+    {
+        $state = new StateSaver();
+        $state->pushTable('inbound_email');
+        $state->pushTable('emails');
+        $state->pushTable('emails_text');
+        $state->pushGlobals();
+        return $state;
+    }
+    
+    /**
+     *
+     * @param StateSaver $state
+     */
+    protected function restoreState(StateSaver $state)
+    {
+        $state->popGlobals();
+        $state->popTable('emails_text');
+        $state->popTable('emails');
+        $state->popTable('inbound_email');
+    }
+    
+    
+    
+    public function testSendSaveAndStoreInSentOk()
+    {
+        $state = $this->storeState();
+        
+        // handle non-gmail sent folder (mailbox is set)
+        $mailer = new SugarPHPMailerMock();
+        $ie = new InboundEmail();
+        $ieId = $ie->save();
+        $this->assertTrue((bool)$ieId);
+        $_REQUEST['inbound_email_id'] = $ieId;
+        $email = new EmailMock();
+        $email->to_addrs_arr = ['foo@bazz.bar'];
+        $email->saved_attachments = [];
+        $nonGmailSentFolder = new NonGmailSentFolderHandlerMock();
+        $ie->mailbox = 'testmailbox';
+        $storedOption = $ie->getStoredOptions();
+        $storedOption['sentFolder'] = 'testSentFolder';
+        $ie->setStoredOptions($storedOption);
+        $mailer->oe->mail_smtptype = 'foomail';
+        $ret = $email->send($mailer, $nonGmailSentFolder, $ie);
+        $this->assertTrue($ret);
+        $this->assertNull($email->getLastSaveAndStoreInSentError());
+        $this->assertNull($email->getNonGmailSentFolderHandler());
+        $this->assertNull($email->getTempEmailAtSend()->getNonGmailSentFolderHandler()->getLastError());
+        $this->assertEquals(Email::NO_ERROR, $email->getTempEmailAtSend()->getLastSaveAndStoreInSentError());
+        
+        $this->restoreState($state);
+    }
+    
+    
+    public function testSendSaveAndStoreInSentOkButIEDoesntMatch()
+    {
+        $state = $this->storeState();
+        
+        // handle non-gmail sent folder (mailbox is set)
+        $mailer = new SugarPHPMailerMock();
+        $ie = new InboundEmail();
+        $ieId = $ie->save();
+        $this->assertTrue((bool)$ieId);
+        $_REQUEST['inbound_email_id'] = $ieId;
+        $email = new EmailMock();
+        $email->to_addrs_arr = ['foo@bazz.bar'];
+        $email->saved_attachments = [];
+        $nonGmailSentFolder = new NonGmailSentFolderHandlerMock();
+        $ie->mailbox = 'testmailbox';
+        $storedOption = $ie->getStoredOptions();
+        $storedOption['sentFolder'] = 'testSentFolder';
+        $ie->setStoredOptions($storedOption);
+        $mailer->oe->mail_smtptype = 'foomail';
+        $ret = $email->send($mailer, $nonGmailSentFolder, $ie);
+        $this->assertTrue($ret);
+        $this->assertNull($email->getLastSaveAndStoreInSentError());
+        $this->assertNull($email->getNonGmailSentFolderHandler());
+        $this->assertNull($email->getTempEmailAtSend()->getNonGmailSentFolderHandler()->getLastError());
+        $this->assertEquals(Email::NO_ERROR, $email->getTempEmailAtSend()->getLastSaveAndStoreInSentError());
+        
+        $this->restoreState($state);
+    }
+    
+    public function testSendSaveAndStoreInSentNoSentFolder()
+    {
+        $state = $this->storeState();
+        
+        // handle non-gmail sent folder (mailbox is set but no ie stored option: sentFolder)
+        $mailer = new SugarPHPMailerMock();
+        $ie = new InboundEmail();
+        $ieId = $ie->save();
+        $this->assertTrue((bool)$ieId);
+        $_REQUEST['inbound_email_id'] = $ieId;
+        $email = new EmailMock();
+        $email->to_addrs_arr = ['foo@bazz.bar'];
+        $email->saved_attachments = [];
+        $nonGmailSentFolder = new NonGmailSentFolderHandlerMock();
+        $ie->mailbox = 'testmailbox';
+        $mailer->oe->mail_smtptype = 'foomail';
+        $ret = $email->send($mailer, $nonGmailSentFolder, $ie);
+        $this->assertTrue($ret);
+        $this->assertNull($email->getLastSaveAndStoreInSentError());
+        $this->assertNull($email->getNonGmailSentFolderHandler());
+        $this->assertEquals(Email::ERR_NOT_STORED_AS_SENT, $email->getTempEmailAtSend()->getLastSaveAndStoreInSentError());
+        $this->assertEquals(
+            NonGmailSentFolderHandler::ERR_NO_STORED_SENT_FOLDER,
+            $email->getTempEmailAtSend()->getNonGmailSentFolderHandler()->getLastError()
+        );
+        
+        $this->restoreState($state);
+    }
+    
+    public function testSendSaveAndStoreInSentNoMailbox()
+    {
+        $state = $this->storeState();
+        
+        // mailbox is not set
+        $mailer = new SugarPHPMailerMock();
+        $ie = new InboundEmail();
+        $ieId = $ie->save();
+        $this->assertTrue((bool)$ieId);
+        $_REQUEST['inbound_email_id'] = $ieId;
+        $email = new EmailMock();
+        $email->to_addrs_arr = ['foo@bazz.bar'];
+        $email->saved_attachments = [];
+        $mailer->oe->mail_smtptype = 'foomail';
+        $ret = $email->send($mailer);
+        $this->assertTrue($ret);
+        $this->assertNull($email->getLastSaveAndStoreInSentError());
+        $this->assertNull($email->getNonGmailSentFolderHandler());
+        $this->assertEquals(Email::ERR_NOT_STORED_AS_SENT, $email->getTempEmailAtSend()->getLastSaveAndStoreInSentError());
+        $this->assertEquals(NonGmailSentFolderHandler::ERR_EMPTY_MAILBOX, $email->getTempEmailAtSend()->getNonGmailSentFolderHandler()->getLastError());
+                
+        $this->restoreState($state);
+    }
+    
+    public function testSendSaveAndStoreInSentNoIE()
+    {
+        $state = $this->storeState();
+        
+        // no IE
+        $mailer = new SugarPHPMailerMock();
+        $_REQUEST['inbound_email_id'] = '123';
+        $email = new Email();
+        $email->to_addrs_arr = ['foo@bazz.bar'];
+        $email->saved_attachments = [];
+        $ret = $email->send($mailer);
+        $this->assertTrue($ret);
+        $this->assertNull($email->getLastSaveAndStoreInSentError());
+        $this->assertNull($email->getNonGmailSentFolderHandler());
+        $this->assertEquals(Email::ERR_IE_RETRIEVE, $email->getTempEmailAtSend()->getLastSaveAndStoreInSentError());
+        $this->assertNull($email->getTempEmailAtSend()->getNonGmailSentFolderHandler());
+                
+        $this->restoreState($state);
+    }
+    
+    public function testSendSaveAndStoreInSentSendFailedButItsOk()
+    {
+        $state = $this->storeState();
+        
+        // should send successfully
+        $mailer = new SugarPHPMailerMock();
+        $email = new Email();
+        $email->to_addrs_arr = ['foo@bazz.bar'];
+        $email->saved_attachments = [];
+        $ret = $email->send($mailer);
+        $this->assertTrue($ret);
+        $this->assertNull($email->getLastSaveAndStoreInSentError());
+        $this->assertNull($email->getNonGmailSentFolderHandler());
+        $this->assertNull($email->getTempEmailAtSend());
+                
+        $this->restoreState($state);
+    }
+    
+    public function testSendSaveAndStoreInSentSendFailed()
+    {
+        $state = $this->storeState();
+        
+        // sending should failing
+        $email = new Email();
+        $email->to_addrs_arr = ['foo@bazz.bar'];
+        $email->saved_attachments = [];
+        $ret = $email->send();
+        $this->assertFalse($ret);
+        $this->assertNull($email->getLastSaveAndStoreInSentError());
+        $this->assertNull($email->getNonGmailSentFolderHandler());
+        $this->assertNull($email->getTempEmailAtSend());
+                
+        $this->restoreState($state);
+    }
+    
+    public function testSendSaveAndStoreInSentSendNoAttachment()
+    {
+        $state = $this->storeState();
+        
+        // attachenemt error
+        $email = new Email();
+        $email->to_addrs_arr = ['foo@bazz.bar'];
+        $ret = $email->send();
+        $this->assertFalse($ret);
+        $this->assertNull($email->getLastSaveAndStoreInSentError());
+        $this->assertNull($email->getNonGmailSentFolderHandler());
+        $this->assertNull($email->getTempEmailAtSend());
+                        
+        $this->restoreState($state);
+    }
+    
+    public function testSendSaveAndStoreInSentSendNoTo()
+    {
+        $state = $this->storeState();
+        
+        // "to" array is required
+        $email = new Email();
+        $ret = $email->send();
+        $this->assertFalse($ret);
+        $this->assertNull($email->getLastSaveAndStoreInSentError());
+        $this->assertNull($email->getNonGmailSentFolderHandler());
+        $this->assertNull($email->getTempEmailAtSend());
+                        
+        $this->restoreState($state);
+    }
+    
+    public function testSetLastSaveAndStoreInSentErrorNo()
+    {
+        $email = new EmailMock();
+        try {
+            $email->setLastSaveAndStoreInSentErrorPublic(null);
+            $this->assertTrue(false);
+        } catch (InvalidArgumentException $e) {
+            $this->assertEquals(Email::ERR_CODE_SHOULD_BE_INT, $e->getCode());
+        }
+    }
+    
+    public function testSaveAndStoreInSentFolderIfNoGmailWithNoIE()
+    {
+        $email = new Email();
+        $ie = new InboundEmail();
+        $ieId = null;
+        $mail = new SugarPHPMailer();
+        $nonGmailSentFolder = new NonGmailSentFolderHandler();
+        $ret = $email->saveAndStoreInSentFolderIfNoGmail($ie, $ieId, $mail, $nonGmailSentFolder);
+        $this->assertNull($ret);
+        $this->assertEquals(Email::ERR_IE_RETRIEVE, $email->getLastSaveAndStoreInSentError());
     }
 
     public function testEmail()
@@ -32,11 +329,8 @@ class EmailTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
 
     public function testemail2init()
     {
-        $state = new SuiteCRM\StateSaver();
+        $state = new StateSaver();
         
-        
-        //error_reporting(E_ERROR | E_PARSE);
-
         $email = new Email();
         $email->email2init();
 
@@ -45,12 +339,11 @@ class EmailTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
 
     public function testbean_implements()
     {
-	// save state
+        // save state
 
-        $state = new \SuiteCRM\StateSaver();
-//        
+        $state = new StateSaver();
 
-	// test
+        // test
         
         $email = new Email();
         $this->assertEquals(false, $email->bean_implements('')); //test with blank value
@@ -59,7 +352,6 @@ class EmailTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         // clean up
         
-//        
     }
 
     public function testemail2saveAttachment()
@@ -122,8 +414,10 @@ class EmailTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         $email = new Email();
 
         $this->assertEquals('some text', $email->decodeDuringSend('some text'));
-        $this->assertEquals('&lt; some text &gt;',
-            $email->decodeDuringSend('sugarLessThan some text sugarGreaterThan'));
+        $this->assertEquals(
+            '&lt; some text &gt;',
+            $email->decodeDuringSend('sugarLessThan some text sugarGreaterThan')
+        );
     }
 
     public function testisDraftEmail()
@@ -216,18 +510,18 @@ class EmailTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
     public function testsaveAndOthers()
     {
 
-	// save state
+    // save state
 
-        $state = new \SuiteCRM\StateSaver();
+        $state = new StateSaver();
         $state->pushTable('email_addresses');
         $state->pushTable('emails');
         $state->pushTable('emails_email_addr_rel');
         $state->pushTable('emails_text');
         $state->pushTable('tracker');
-//        
+//
         $state->pushGlobals();
 
-	// test
+        // test
         
         
         $email = new Email();
@@ -276,7 +570,7 @@ class EmailTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         // clean up
         
         $state->popGlobals();
-//        
+//
         $state->popTable('tracker');
         $state->popTable('emails_text');
         $state->popTable('emails_email_addr_rel');
@@ -437,7 +731,7 @@ class EmailTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
 
         $email->from_name = 'from test';
         $email->name = 'test';
-        $email->date_sent = '2016-01-01';
+        $email->date_sent_received = '2016-01-01';
         $email->to_addrs = 'to@email.com';
         $email->cc_addrs = 'cc@email.com';
 
@@ -566,7 +860,6 @@ class EmailTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
 
     public function testpickOneButton()
     {
-        
         $email = new Email();
 
         $expected = "<div><input	title=\"\"
@@ -745,12 +1038,12 @@ class EmailTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
     {
         self::markTestIncomplete('environment dependency (span os a?)');
         
-	// save state
+        // save state
 
-        $state = new \SuiteCRM\StateSaver();
+        $state = new StateSaver();
         $state->pushGlobals();
         
-	// test
+        // test
         
         $email = new Email();
 
@@ -778,7 +1071,7 @@ class EmailTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         $email = new Email();
 
         //test with empty string params
-        $expected = "SELECT emails.*, users.user_name as assigned_user_name\n FROM emails\n LEFT JOIN users ON emails.assigned_user_id=users.id \nWHERE  emails.deleted=0 \n ORDER BY date_sent DESC";
+        $expected = "SELECT emails.*, users.user_name as assigned_user_name\n FROM emails\n LEFT JOIN users ON emails.assigned_user_id=users.id \nWHERE  emails.deleted=0 \n ORDER BY date_sent_received DESC";
         $actual = $email->create_new_list_query('', '');
         $this->assertSame($expected, $actual);
 
@@ -896,11 +1189,9 @@ class EmailTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
 
     public function test_genereateSearchImportedEmailsQuery()
     {
-        
-        
         $email = new Email();
 
-        $expected = "SELECT emails.id , emails.mailbox_id, emails.name, emails.date_sent, emails.status, emails.type, emails.flagged, emails.reply_to_status,
+        $expected = "SELECT emails.id , emails.mailbox_id, emails.name, emails.date_sent_received, emails.status, emails.type, emails.flagged, emails.reply_to_status,
 		                      emails_text.from_addr, emails_text.to_addrs  FROM emails   JOIN emails_text on emails.id = emails_text.email_id   WHERE (emails.type= 'inbound' OR emails.type='archived' OR emails.type='out') AND emails.deleted = 0 ";
         $actual = $email->_genereateSearchImportedEmailsQuery();
         $this->assertSame($expected, $actual);
@@ -909,12 +1200,12 @@ class EmailTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
     public function test_generateSearchImportWhereClause()
     {
         
-	// save state
+    // save state
 
-        $state = new \SuiteCRM\StateSaver();
+        $state = new StateSaver();
         $state->pushGlobals();
 
-	// test
+        // test
         
         
         $email = new Email();
@@ -926,22 +1217,22 @@ class EmailTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
 
         //test with searchDateFrom request param only
         $_REQUEST['searchDateFrom'] = '2015-01-01 00:00:00';
-        $expected = "emails.date_sent >= '' ";
+        $expected = "emails.date_sent_received >= '' ";
         $actual = $email->_generateSearchImportWhereClause();
         $this->assertSame($expected, $actual);
 
         //test with searchDateTo request param only
         $_REQUEST['searchDateFrom'] = '';
         $_REQUEST['searchDateTo'] = '2015-01-01 00:00:00';
-        $expected = "emails.date_sent <= '' ";
+        $expected = "emails.date_sent_received <= '' ";
         $actual = $email->_generateSearchImportWhereClause();
         $this->assertSame($expected, $actual);
 
         //test with both request params
         $_REQUEST['searchDateFrom'] = '2015-01-01 00:00:00';
         $_REQUEST['searchDateTo'] = '2015-01-01 00:00:00';
-        $expected = "( emails.date_sent >= '' AND
-                                          emails.date_sent <= '' )";
+        $expected = "( emails.date_sent_received >= '' AND
+                                          emails.date_sent_received <= '' )";
         $actual = $email->_generateSearchImportWhereClause();
         $this->assertSame($expected, $actual);
 
@@ -956,10 +1247,14 @@ class EmailTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         $email = new Email();
 
         $this->assertEquals('test string', $email->trimLongTo('test string')); //test without any separator
-        $this->assertEquals('test string 1...',
-            $email->trimLongTo('test string 1, test string2')); //test with , separator
-        $this->assertEquals('test string 1...',
-            $email->trimLongTo('test string 1; test string2'));//test with ; separator
+        $this->assertEquals(
+            'test string 1...',
+            $email->trimLongTo('test string 1, test string2')
+        ); //test with , separator
+        $this->assertEquals(
+            'test string 1...',
+            $email->trimLongTo('test string 1; test string2')
+        );//test with ; separator
     }
 
     public function testget_summary_text()
@@ -977,12 +1272,12 @@ class EmailTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
     public function testdistributionForm()
     {
 
-	// save state
+    // save state
 
-        $state = new \SuiteCRM\StateSaver();
+        $state = new StateSaver();
         $state->pushGlobals();
 
-	// test
+        // test
         
         require_once 'include/utils/layout_utils.php';
         $email = new Email();
@@ -1010,7 +1305,6 @@ class EmailTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
 
     public function testcheckInbox()
     {
-        
         $email = new Email();
 
         //test with empty string
@@ -1036,10 +1330,10 @@ class EmailTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
 
     public function testfillPrimaryParentFields()
     {
-        $state = new SuiteCRM\StateSaver();
+        $state = new StateSaver();
         
         
-        //error_reporting(E_ERROR | E_PARSE);
+        
         
         
         $email = new Email();
@@ -1053,16 +1347,14 @@ class EmailTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         }
         
         // clean up
-        
-        
     }
 
     public function testcid2Link()
     {
-        $state = new SuiteCRM\StateSaver();
+        $state = new StateSaver();
         
         
-        //error_reporting(E_ERROR | E_PARSE);
+        
         
         
         $email = new Email();
@@ -1079,16 +1371,14 @@ class EmailTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         }
         
         // clean up
-        
-        
     }
 
     public function testcids2Links()
     {
-        $state = new SuiteCRM\StateSaver();
+        $state = new StateSaver();
         
         
-        //error_reporting(E_ERROR | E_PARSE);
+        
         
         
         $email = new Email();
@@ -1105,16 +1395,14 @@ class EmailTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         }
         
         // clean up
-        
-        
     }
 
     public function testsetFieldNullable()
     {
-        $state = new SuiteCRM\StateSaver();
+        $state = new StateSaver();
         
         
-        //error_reporting(E_ERROR | E_PARSE);
+        
         
         
         $email = new Email();
@@ -1128,16 +1416,14 @@ class EmailTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         }
         
         // clean up
-        
-        
     }
 
     public function testrevertFieldNullable()
     {
-        $state = new SuiteCRM\StateSaver();
+        $state = new StateSaver();
         
         
-        //error_reporting(E_ERROR | E_PARSE);
+        
         
         
         $email = new Email();
@@ -1151,7 +1437,5 @@ class EmailTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         }
         
         // clean up
-        
-        
     }
 }

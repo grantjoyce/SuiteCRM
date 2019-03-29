@@ -19,7 +19,7 @@
  * or write to the Free Software Foundation,Inc., 51 Franklin Street,
  * Fifth Floor, Boston, MA 02110-1301  USA
  *
- * @author Salesagility Ltd <support@salesagility.com>
+ * @author SalesAgility Ltd <support@salesagility.com>
  */
 if(!defined('sugarEntry'))define('sugarEntry', true);
 
@@ -31,7 +31,7 @@ function url_exists($url) {
     return true;
 }
 
-if(!isAOPEnabled()){
+if (!isAOPEnabled()) {
     return;
 }
 global $sugar_config, $mod_strings;
@@ -39,8 +39,8 @@ global $sugar_config, $mod_strings;
 require_once('modules/Contacts/Contact.php');
 
 try {
-    $bean = new Contact();
-    $bean->retrieve($_REQUEST['record']);
+$bean = new Contact();
+$bean->retrieve($_REQUEST['record']);
 
     if (array_key_exists("aop", $sugar_config) && array_key_exists("joomla_urls", $sugar_config['aop'])) {
         $portalURLs = array_unique($sugar_config['aop']['joomla_urls']);
@@ -93,7 +93,7 @@ try {
 
 
                         $wbsv = file_get_contents($url);
-                        $res = json_decode($wbsv);
+    $res = json_decode($wbsv);
                         if (json_last_error() != JSON_ERROR_NONE) {
                             $json_msg = json_last_error();
                             if ($json_msg) {
@@ -104,8 +104,8 @@ try {
                         // append portal to messages
                         if (!isset($res->success) || !$res->success) {
                             $msg = $res->error ? $res->error : $mod_strings['LBL_ENABLE_PORTAL_USER_FAILED'] . " ($portalURL)";
-                            SugarApplication::appendErrorMessage($msg);
-                        } else {
+        SugarApplication::appendErrorMessage($msg);
+    } else {
                             $jaList[0]->portal_account_disabled = 0;
                             $jaList[0]->save(false);
                             SugarApplication::appendErrorMessage($mod_strings['LBL_ENABLE_PORTAL_USER_SUCCESS'] . " ($portalURL)");
@@ -113,9 +113,9 @@ try {
                     }
                 }
             }
-        }
-    } else {
-        SugarApplication::appendErrorMessage($mod_strings['LBL_NO_JOOMLA_URL']);
+    }
+} else {
+    SugarApplication::appendErrorMessage($mod_strings['LBL_NO_JOOMLA_URL']);
     }
 } catch(AOPContactUtilsException $e) {
     $eCode = $e->getCode();

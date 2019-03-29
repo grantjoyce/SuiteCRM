@@ -1,10 +1,10 @@
-<?PHP
+<?php
 
 class AOD_IndexTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
 {
     public function testAOD_Index()
     {
-        
+
         $this->markTestSkipped('Test does not needed in suiteassured');
 
         //execute the contructor and check for the Object type and type attribute
@@ -25,11 +25,11 @@ class AOD_IndexTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
     public function testisEnabled()
     {
         $this->markTestSkipped('Test does not needed in suiteassured');
-        
+
         $state = new SuiteCRM\StateSaver();
         
         
-        //error_reporting(E_ERROR | E_PARSE);
+        
 
         $aod_index = new AOD_Index();
 
@@ -38,38 +38,36 @@ class AOD_IndexTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         $this->assertTrue($result);
         
         // clean up
-        
-        
     }
 
     public function testfind()
     {
         $this->markTestSkipped('Test does not needed in suiteassured');
-        
-        
+
+
         self::markTestIncomplete('[Zend_Search_Lucene_Exception] File \'modules/AOD_Index/Index/Index/segments_31\' is not readable.');
         $aod_index = new AOD_Index();
 
         $aod_index->id = 1;
         $aod_index->location = 'modules/AOD_Index/Index/Index';
 
-         //execute the method with parameters and verify that it returns true
-         $hits = $aod_index->find('/');
+        //execute the method with parameters and verify that it returns true
+        $hits = $aod_index->find('/');
         $this->assertTrue(is_array($hits));
     }
 
     public function testoptimise()
     {
         $this->markTestSkipped('Test does not needed in suiteassured');
-        
-        
-	self::markTestIncomplete('[Zend_Search_Lucene_Exception] File \'modules/AOD_Index/Index/Index/segments_31\' is not readable.');
+
+
+        self::markTestIncomplete('[Zend_Search_Lucene_Exception] File \'modules/AOD_Index/Index/Index/segments_31\' is not readable.');
         // save state
 
         $state = new \SuiteCRM\StateSaver();
         $state->pushTable('tracker');
 
-	// test
+        // test
         
         $aod_index = new AOD_Index();
         $aod_index->id = 1;
@@ -83,18 +81,17 @@ class AOD_IndexTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         // clean up
         
         $state->popTable('tracker');
-
     }
 
     public function testgetIndex()
     {
         $this->markTestSkipped('Test does not needed in suiteassured');
-        
-        
+
+
         $aod_index = new AOD_Index();
         $result = $aod_index->getIndex();
 
-        //execute the method and verify it returns a different instance of samme type 
+        //execute the method and verify it returns a different instance of samme type
         $this->assertInstanceOf('AOD_Index', $result);
         $this->assertNotSame($aod_index, $result);
     }
@@ -102,8 +99,8 @@ class AOD_IndexTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
     public function testgetDocumentForBean()
     {
         $this->markTestSkipped('Test does not needed in suiteassured');
-        
-        
+
+
         $user = new User(1);
 
         $aod_index = new AOD_Index();
@@ -119,13 +116,13 @@ class AOD_IndexTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
     public function testcommit()
     {
         $this->markTestSkipped('Test does not needed in suiteassured');
-        
-        
+
+
         self::markTestIncomplete('File \'modules/AOD_Index/Index/Index/segments_31\' is not readable.');
         $state = new SuiteCRM\StateSaver();
         
         
-        //error_reporting(E_ERROR | E_PARSE);
+        
         
         
         $aod_index = new AOD_Index();
@@ -141,15 +138,13 @@ class AOD_IndexTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         }
         
         // clean up
-        
-        
     }
 
     public function testisModuleSearchable()
     {
         $this->markTestSkipped('Test does not needed in suiteassured');
-        
-        
+
+
 
         //test with an invalid module
         $this->assertFalse(AOD_Index::isModuleSearchable('', ''));
@@ -172,8 +167,8 @@ class AOD_IndexTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
     public function testindex()
     {
         $this->markTestSkipped('Test does not needed in suiteassured');
-        
-        
+
+
         $aod_index = new AOD_Index();
         $aod_index->id = 1;
         $aod_index->location = 'modules/AOD_Index/Index/Index';
@@ -185,20 +180,19 @@ class AOD_IndexTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         //test with a searchable module but invalid bean id, it will still index it
         $result = $aod_index->index('Accounts', 1);
         $this->assertEquals(null, $result);
-        
     }
 
     public function testremove()
     {
         $this->markTestSkipped('Test does not needed in suiteassured');
-        
-        
+
+
         self::markTestIncomplete('File \'modules/AOD_Index/Index/Index/segments_31\' is not readable.');
         
         $state = new SuiteCRM\StateSaver();
         
         
-        //error_reporting(E_ERROR | E_PARSE);
+        
         
         
         $aod_index = new AOD_Index();
@@ -214,15 +208,13 @@ class AOD_IndexTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         }
         
         // clean up
-        
-        
     }
 
     public function testgetIndexableModules()
     {
         $this->markTestSkipped('Test does not needed in suiteassured');
-        
-        
+
+
         $expected = array(
             'AM_ProjectTemplates' => 'AM_ProjectTemplates',
             'AM_TaskTemplates' => 'AM_TaskTemplates',

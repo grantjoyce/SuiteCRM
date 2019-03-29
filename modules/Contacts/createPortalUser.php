@@ -19,7 +19,7 @@
  * or write to the Free Software Foundation,Inc., 51 Franklin Street,
  * Fifth Floor, Boston, MA 02110-1301  USA
  *
- * @author Salesagility Ltd <support@salesagility.com>
+ * @author SalesAgility Ltd <support@salesagility.com>
  */
 if(!defined('sugarEntry'))define('sugarEntry', true);
 
@@ -37,11 +37,9 @@ function url_exists($url)
 if (!isAOPEnabled()) {
     return;
 }
-
 global $sugar_config, $mod_strings;
 
 require_once('modules/Contacts/Contact.php');
-
 
 $bean = new Contact();
 $bean->retrieve($_REQUEST['record']);
@@ -90,7 +88,7 @@ try {
                         }
 
                         $wbsv = file_get_contents($url);
-                        $res = json_decode($wbsv);
+    $res = json_decode($wbsv);
                         if (json_last_error() != JSON_ERROR_NONE) {
                             $json_msg = json_last_error();
                             if ($json_msg) {
@@ -108,16 +106,16 @@ try {
                         if (!isset($res->success) || !$res->success) {
                             $ja->mark_deleted($ja->id);
                             $msg = $res->error ? $res->error : ($mod_strings['LBL_CREATE_PORTAL_USER_FAILED'] . " ($portalURL)");
-                            SugarApplication::appendErrorMessage($msg);
-                        } else {
+        SugarApplication::appendErrorMessage($msg);
+    } else {
                             SugarApplication::appendErrorMessage($mod_strings['LBL_CREATE_PORTAL_USER_SUCCESS'] . " ($portalURL)");
                         }
                     }
                 }
             }
-        }
-    } else {
-        SugarApplication::appendErrorMessage($mod_strings['LBL_NO_JOOMLA_URL']);
+    }
+} else {
+    SugarApplication::appendErrorMessage($mod_strings['LBL_NO_JOOMLA_URL']);
     }
 } catch(AOPContactUtilsException $e) {
     $eCode = $e->getCode();

@@ -4,7 +4,7 @@
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
  * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
- * Copyright (C) 2011 - 2016 SalesAgility Ltd.
+ * Copyright (C) 2011 - 2018 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Affero General Public License version 3 as published by the
@@ -15,7 +15,7 @@
  *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License for more
+ * FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
  * details.
  *
  * You should have received a copy of the GNU Affero General Public License along with
@@ -33,8 +33,8 @@
  * In accordance with Section 7(b) of the GNU Affero General Public License version 3,
  * these Appropriate Legal Notices must retain the display of the "Powered by
  * SugarCRM" logo and "Supercharged by SuiteCRM" logo. If the display of the logos is not
- * reasonably feasible for  technical reasons, the Appropriate Legal Notices must
- * display the words  "Powered by SugarCRM" and "Supercharged by SuiteCRM".
+ * reasonably feasible for technical reasons, the Appropriate Legal Notices must
+ * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
 /**
@@ -132,23 +132,21 @@ function aop_parse_template($string, $bean_arr)
 
         if($focus = BeanFactory::getBean($bean_name, $bean_id)) {
 
-            if ($bean_name === 'Leads' || $bean_name === 'Prospects') {
-                $bean_name = 'Contacts';
-            }
-
+        if ($bean_name === 'Leads' || $bean_name === 'Prospects') {
+            $bean_name = 'Contacts';
+        }
 
         foreach ($focus->field_defs as $key => $field_def) {
-                if (array_key_exists($field_def['type'], $typeMap)) {
-                    $focus->field_defs[$key]['type'] = $typeMap[$field_def['type']];
-                }
-
+            if (array_key_exists($field_def['type'], $typeMap)) {
+                $focus->field_defs[$key]['type'] = $typeMap[$field_def['type']];
+            }
         }
 
         if (isset($this) && isset($this->module_dir) && $this->module_dir === 'EmailTemplates') {
-                $string = $this->parse_template_bean($string, $bean_name, $focus);
-            } else {
-                $emailTemplate = new EmailTemplate();
-                $string = $emailTemplate->parse_template_bean($string, $bean_name, $focus);
+            $string = $this->parse_template_bean($string, $bean_name, $focus);
+        } else {
+            $emailTemplate = new EmailTemplate();
+            $string = $emailTemplate->parse_template_bean($string, $bean_name, $focus);
             }
 
         } else {

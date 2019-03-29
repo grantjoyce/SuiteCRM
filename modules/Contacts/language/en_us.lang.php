@@ -5,7 +5,7 @@
  * SugarCRM, Inc. Copyright (C) 2004-2013 SugarCRM Inc.
  *
  * SuiteCRM is an extension to SugarCRM Community Edition developed by SalesAgility Ltd.
- * Copyright (C) 2011 - 2018 SalesAgility Ltd.
+ * Copyright (C) 2011 - 2019 SalesAgility Ltd.
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Affero General Public License version 3 as published by the
@@ -237,9 +237,9 @@ $mod_strings = array(
     'LBL_USER_SYNC' => 'User Sync',
 
     'LBL_AOP_CASE_UPDATES' => 'Case Updates',
-    'LBL_CREATE_PORTAL_USER' => 'Create Portal User..',
-    'LBL_ENABLE_PORTAL_USER' => 'Enable Portal User..',
-    'LBL_DISABLE_PORTAL_USER' => 'Disable Portal User..',
+    'LBL_CREATE_PORTAL_USER' => 'Create Portal User',
+    'LBL_ENABLE_PORTAL_USER' => 'Enable Portal User',
+    'LBL_DISABLE_PORTAL_USER' => 'Disable Portal User',
     'LBL_CREATE_PORTAL_USER_FAILED' => 'Failed to create portal user',
     'LBL_ENABLE_PORTAL_USER_FAILED' => 'Failed to enable portal user',
     'LBL_DISABLE_PORTAL_USER_FAILED' => 'Failed to disable portal user',
