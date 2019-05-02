@@ -165,7 +165,11 @@ class AccountTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         $expected = array(
             'DELETED' => 0,
             'EMAIL1' => '',
-            'EMAIL1_LINK' => '<a class="email-link" href="javascript:void(0);"  onclick="$(document).openComposeViewModal(this);" data-module="Accounts" data-record-id="" data-module-name=""  data-email-address=""></a>',
+            'EMAIL1_LINK' => '            <a class="email-link" href="mailto:"
+                    onclick="$(document).openComposeViewModal(this);"
+                    data-module="Accounts" data-record-id=""
+                    data-module-name=" " data-email-address=""
+                ></a>',
             'ENCODED_NAME' => null,
             'CITY' => null,
             'BILLING_ADDRESS_STREET' => null,

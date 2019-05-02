@@ -428,7 +428,7 @@ class SchedulersJobTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
 
         $schedulersJob->target = 'function::processAOW_Workflow';
         $result = $schedulersJob->runJob();
-        $this->assertEquals(false, $result);
+        $this->assertEquals(true, $result);
         $schedulersJob->mark_deleted($schedulersJob->id);
 
         //test with valid user

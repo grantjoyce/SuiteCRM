@@ -1,4 +1,4 @@
-## SuiteASSURED 2.0.2
+## SuiteASSURED 2.0.3
 
 ### What's in this repository ###
 
@@ -61,7 +61,7 @@ The following links offer various ways to view, contribute and collaborate to th
 
 [ View the Community Roadmap here and get involved][suitecrm_roadmap]
 
-[suitecrm_roadmap]: https://suitecrm.com/community/roadmap
+[suitecrm_roadmap]: https://suitecrm.com/roadmap
 
 [More detailed SuiteCRM Community LTS Roadmap][suitecrm_detailed_roadmap]
 
