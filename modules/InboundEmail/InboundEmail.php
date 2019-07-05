@@ -4453,12 +4453,10 @@ class InboundEmail extends SugarBean
                 } // end if disposition type 'attachment'
             }// end ifdisposition
             //Retrieve contents of subtype rfc8822
-            elseif ($part->type == 2 && isset($part->subtype) && strtolower($part->subtype) == 'rfc822') {
-                $tmp_eml = $this->getImap()->fetchBody($msgNo, $thisBc);
+            elseif ($part->type == 2 && isset($part->subtype) && (strtolower($part->subtype) == 'rfc822' || strtolower($part->subtype) == 'delivery-status')) {
                 $attach = $this->getNoteBeanForAttachment($emailId);
-                $attach->file_mime_type = 'messsage/rfc822';
-                $attach->description = $tmp_eml;
-                $attach->filename = 'bounce.eml';
+                $attach->file_mime_type = 'message/' . strtolower($part->subtype);
+                $attach->filename = 'bounce-' . strtolower($part->subtype) . '.txt';
                 $attach->safeAttachmentName();
                 if ($forDisplay) {
                     $attach->id = $this->getTempFilename();
@@ -7760,7 +7758,8 @@ eoq;
 
     public function saveMailBoxValueOfInboundEmail()
     {
-        $query = "update inbound_email set mailbox = '{$this->mailbox}' where id ='{$this->id}'";
+        $emailUserQuoted = $this->db->quote($this->email_user);
+        $query = "update Inbound_email set mailbox = '$emailUserQuoted'";
         $this->db->query($query);
     }
 

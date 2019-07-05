@@ -133,10 +133,6 @@ class AOR_ReportTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         $state = new SuiteCRM\StateSaver();
         $state->pushGlobals();
         
-        
-        
-        
-        
         $aor_Report = new AOR_Report();
 
         //execute the method and test if it works and does not throws an exception.
@@ -153,7 +149,6 @@ class AOR_ReportTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
 
     public function testgetReportFields()
     {
-
         //execute the method and verify that it returns an array
         $aor_Report = new AOR_Report();
         $result = $aor_Report->getReportFields();
@@ -184,7 +179,6 @@ class AOR_ReportTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         }
         
         // clean up
-        
         unset($GLOBALS['_SESSION']);
         unset($GLOBALS['objectList']);
         unset($GLOBALS['mod_strings']);
@@ -206,7 +200,6 @@ class AOR_ReportTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         $state->pushGlobals();
         
         // test
-        
         $aor_Report = new AOR_Report();
         $aor_Report->report_module = 'Accounts';
         $aor_Report->id = '1';
@@ -229,7 +222,6 @@ class AOR_ReportTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         $this->assertNotEquals($html2, $html3);
         
         // clean up
-        
         $state->popGlobals();
     }
 
@@ -258,13 +250,11 @@ class AOR_ReportTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         $this->assertContains('testidentifier', $html3);
         
         // clean up
-        
         $state->popGlobals();
     }
 
     public function testgetTotalHTML()
     {
-
         //execute the method with required data preset and verify it returns expected result
         $fields = array('label' => array('display' => 1, 'total' => 'SUM', 'label' => 'total'));
         $totals = array('label' => array(10, 20, 30));
@@ -278,7 +268,6 @@ class AOR_ReportTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
 
     public function testcalculateTotal()
     {
-
         //execute the method with data preset and verify it returns expected result
         $totals = array(10, 20, 30);
 
@@ -321,7 +310,6 @@ class AOR_ReportTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         $this->assertGreaterThanOrEqual(0, strlen($actual));
         
         // clean up
-        
         $state->popGlobals();
     }
 
@@ -386,7 +374,6 @@ class AOR_ReportTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         $this->assertEquals('', $result);
         
         // clean up
-        
         $state->popGlobals();
     }
 
@@ -404,7 +391,6 @@ class AOR_ReportTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         $this->assertSame($expected, $actual);
         
         // clean up
-        
         $state->popGlobals();
     }
 }

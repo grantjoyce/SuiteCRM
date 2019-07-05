@@ -266,8 +266,8 @@ $mod_strings = array(
     'LBL_HOUR_ABBREV' => 'hour',
     'LBL_HOURS_ABBREV' => 'hours',
     'LBL_MINSS_ABBREV' => 'minutes',
-    'LBL_LOCATION' => 'Location: ',
-    'LBL_STATUS' => 'Status: ',
+    'LBL_LOCATION' => 'Location:',
+    'LBL_STATUS' => 'Status:',
     'LBL_DESCRIPTION' => 'Description: ',
     //End Events
 );

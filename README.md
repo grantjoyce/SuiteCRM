@@ -6,6 +6,10 @@ This is the git repository for the SuiteASSURED project. The freedoms of open so
 
 ### Contributing to the SuiteCRM project ###
 
+#### Making a Pull Request ####
+
+The [contributing code](https://docs.suitecrm.com/community/contributing-code/) documentation page will provide all the details you need to know about coding standards, which branch to direct your PR to (depending on whether it's a bug fix or a new feature), testing, etc.
+
 #### Security ####
 
 We take Security seriously here at SuiteCRM so if you have discovered a security risk report it by

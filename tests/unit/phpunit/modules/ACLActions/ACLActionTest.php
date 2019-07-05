@@ -1,6 +1,5 @@
 <?php
 
-
 class ACLActionTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
 {
     public function setUp()
@@ -38,7 +37,6 @@ class ACLActionTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         $this->assertAttributeEquals(true, 'disable_custom_fields', $aclAction);
         
         // clean up
-        
         $state->popGlobals();
         $state->popTable('acl_actions');
     }
@@ -49,7 +47,7 @@ class ACLActionTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         $state = new SuiteCRM\StateSaver();
         $state->pushTable('acl_actions');
-        
+
         
         
 
@@ -61,13 +59,12 @@ class ACLActionTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         
         // clean up
         
-        
+
         $state->popTable('acl_actions');
     }
 
     public function testremoveActions()
     {
-
         //take count of actions initially and then after method execution and test if action count decreases
         $action_count = count(ACLAction::getDefaultActions());
         ACLAction::removeActions('Test');
@@ -77,15 +74,8 @@ class ACLActionTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
 
     public function testAccessName()
     {
-        $state = new SuiteCRM\StateSaver();
-        
-        
-        
-
         $this->assertFalse(ACLAction::AccessName('')); //test with invalid value
         $this->assertEquals('All', ACLAction::AccessName(90)); //test with a valid value
-        
-        // clean up
     }
 
     public function testgetDefaultActions()
@@ -106,12 +96,12 @@ class ACLActionTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
 
     public function testgetUserActions()
     {
-        $result1 = ACLAction::getUserActions('1');
-        $result2 = ACLAction::getUserActions('1', false, 'Accounts');
-        $result3 = ACLAction::getUserActions('1', false, 'Accounts', 'list');
+        self::markTestIncomplete('Need to implement: verify that all three results returned are different.');
+        // $result1 = ACLAction::getUserActions('1');
+        // $result2 = ACLAction::getUserActions('1', false, 'Accounts');
+        // $result3 = ACLAction::getUserActions('1', false, 'Accounts', 'list');
 
-        self::markTestIncomplete('Need to implement: verify that all three results retunred are different.');
-        //verify that all three results retunred are different
+        //verify that all three results returned are different
         //$this->assertNotSame($result1, $result2);
         //$this->assertNotSame($result1, $result3);
         //$this->assertNotSame($result2, $result3);
@@ -176,7 +166,6 @@ class ACLActionTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
     public function testuserNeedsOwnership()
     {
         self::markTestIncomplete('Need to fix checking user access. Hint: session is a system state perhaps its failing because the user session');
-        
 
         //test with invalid values
         $this->assertFalse(ACLAction::userNeedsOwnership('', '', ''));
