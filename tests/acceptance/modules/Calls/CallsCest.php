@@ -21,23 +21,19 @@ class CallsCest
             $this->fakeData = Faker\Factory::create();
         }
 
-        $this->fakeDataSeed = rand(0, 2048);
+        $this->fakeDataSeed = mt_rand(0, 2048);
         $this->fakeData->seed($this->fakeDataSeed);
     }
 
     /**
      * @param \AcceptanceTester $I
      * @param \Step\Acceptance\ListView $listView
-     * @param \Step\Acceptance\Calls $calls
-     * @param \Helper\WebDriverHelper $webDriverHelper
      *
      * As an administrator I want to view the calls module.
      */
     public function testScenarioViewCallsModule(
         \AcceptanceTester $I,
-        \Step\Acceptance\ListView $listView,
-        \Step\Acceptance\Calls $calls,
-        \Helper\WebDriverHelper $webDriverHelper
+        \Step\Acceptance\ListView $listView
     ) {
         $I->wantTo('View the calls module for testing');
 
@@ -52,20 +48,16 @@ class CallsCest
     /**
      * @param \AcceptanceTester $I
      * @param \Step\Acceptance\ListView $listView
-     * @param \Step\Acceptance\NavigationBar $NavigationBar
      * @param \Step\Acceptance\Calls $calls
      * @param \Step\Acceptance\DetailView $detailView
-     * @param \Helper\WebDriverHelper $webDriverHelper
      *
      * As an administrator I want to verify the date field of a call
      */
     public function testScenarioCallDate(
         \AcceptanceTester $I,
         \Step\Acceptance\ListView $listView,
-        \Step\Acceptance\NavigationBar $NavigationBar,
         \Step\Acceptance\Calls $calls,
-        \Step\Acceptance\DetailView $detailView,
-        \Helper\WebDriverHelper $webDriverHelper
+        \Step\Acceptance\DetailView $detailView
     ) {
         $I->wantTo('Create a call');
 

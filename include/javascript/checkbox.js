@@ -221,3 +221,432 @@ function set_return_and_save_background2(popup_reply_data) {
     document.location.reload(true);
   }
 }
+
+
+//Using Sugar native YUI Library dialog pop-up for button link groupings
+function select_targets() {
+
+  titleVal = SUGAR.language.get('FP_events', 'LBL_SELECT_DELEGATES_TITLE');
+
+  htmltext = "<table style='width: 100%;text-align:left;'>";
+
+  htmltext += "<tr><td style='padding: 2px;text-align:right;'><img src='themes/default/images/view-process-own.png'></td><td style='padding: 2px;font-size: 110%;'><b><a href='#' onclick='handle_targetlists();return false;'>" + SUGAR.language.get('FP_events', 'LBL_SELECT_DELEGATES_TARGET_LIST') + "</a></b><td></tr>";
+  htmltext += "<tr><td style='padding: 2px;text-align:right;'><img src='themes/default/images/view-process-own.png'></td><td style='padding: 2px;font-size: 110%;'><strong><a href='#' onclick='handle_targets();return false;'>" + SUGAR.language.get('FP_events', 'LBL_SELECT_DELEGATES_TARGETS') + "</a></strong><td></tr>";
+  htmltext += "<tr><td style='padding: 2px;text-align:right;'><img src='themes/default/images/view-process-own.png'></td><td style='padding: 2px;font-size: 110%;'><strong><a href='#' onclick='handle_contacts();return false;'>" + SUGAR.language.get('FP_events', 'LBL_SELECT_DELEGATES_CONTACTS') + "</a></strong><td></tr>";
+  htmltext += "<tr><td style='padding: 2px;text-align:right;'><img src='themes/default/images/view-process-own.png'></td><td style='padding: 2px;font-size: 110%;'><strong><a href='#' onclick='handle_leads();return false;'>" + SUGAR.language.get('FP_events', 'LBL_SELECT_DELEGATES_LEADS') + "</a></strong><td></tr>";
+
+  htmltext += "</table>";
+  //initialise dialog
+  dialog = new YAHOO.widget.Dialog('details_popup_div', {
+    width: '200px',
+    fixedcenter: "contained",
+    visible: false,
+    draggable: true,
+    effect: [
+      {effect: YAHOO.widget.ContainerEffect.FADE, duration: 0.1}],
+    modal: true
+  });
+
+  dialog.setHeader(titleVal);
+  dialog.setBody(htmltext);
+  dialog.setFooter('');
+
+  var handleCancel = function () {
+    this.cancel();
+  };
+
+  //set dialog box buttons
+  var myButtons = [{text: "Cancel", handler: handleCancel, isDefault: true}];
+  dialog.cfg.queueProperty("buttons", myButtons);
+  //render dialog box
+  dialog.render(document.body);
+  dialog.show();
+}
+
+//open target list pop-up window
+function handle_targetlists() {
+  dialog.cancel();
+  open_popup("ProspectLists", 600, 400, "", true, true, {
+    "call_back_function": "set_return_and_save_background2",
+    "form_name": "DetailView",
+    "field_to_name_array": {"id": "subpanel_id"},
+    "passthru_data": {
+      "child_field": "delegates",
+      "return_url": "index.php%3Fmodule%3DFP_events%26action%3DSubPanelViewer%26subpanel%3Ddelegates%26sugar_body_only%3D1",
+      "link_field_name": null,
+      "module_name": "delegates",
+      "refresh_page": 0,
+      "pop_up_type": "target_list"
+    }
+  }, "MultiSelect", true);
+}
+//open targets pop-up window
+function handle_targets() {
+  dialog.cancel();
+  open_popup("Prospects", 600, 400, "", true, true, {
+    "call_back_function": "set_return_and_save_background2",
+    "form_name": "DetailView",
+    "field_to_name_array": {"id": "subpanel_id"},
+    "passthru_data": {
+      "child_field": "delegates",
+      "return_url": "index.php%3Fmodule%3DFP_events%26action%3DSubPanelViewer%26subpanel%3Ddelegates%26sugar_body_only%3D1",
+      "link_field_name": null,
+      "module_name": "delegates",
+      "refresh_page": 0,
+      "pop_up_type": "targets"
+    }
+  }, "MultiSelect", true);
+}
+//open contacts pop-up window
+function handle_contacts() {
+  dialog.cancel();
+  open_popup("Contacts", 600, 400, "", true, true, {
+    "call_back_function": "set_return_and_save_background2",
+    "form_name": "DetailView",
+    "field_to_name_array": {"id": "subpanel_id"},
+    "passthru_data": {
+      "child_field": "delegates",
+      "return_url": "index.php%3Fmodule%3DFP_events%26action%3DSubPanelViewer%26subpanel%3Ddelegates%26sugar_body_only%3D1",
+      "link_field_name": null,
+      "module_name": "delegates",
+      "refresh_page": 0,
+      "pop_up_type": "contacts"
+    }
+  }, "MultiSelect", true);
+}
+//open leads pop-up window
+function handle_leads() {
+  dialog.cancel();
+  open_popup("Leads", 600, 400, "", true, true, {
+    "call_back_function": "set_return_and_save_background2",
+    "form_name": "DetailView",
+    "field_to_name_array": {"id": "subpanel_id"},
+    "passthru_data": {
+      "child_field": "delegates",
+      "return_url": "index.php%3Fmodule%3DFP_events%26action%3DSubPanelViewer%26subpanel%3Ddelegates%26sugar_body_only%3D1",
+      "link_field_name": null,
+      "module_name": "delegates",
+      "refresh_page": 0,
+      "pop_up_type": "leads"
+    }
+  }, "MultiSelect", true);
+}
+
+
+function manage_delegates() {
+
+  var ids = $("#custom_hidden_1").val();
+
+  if (ids != '') {
+
+    titleVal = SUGAR.language.get('FP_events', 'LBL_MANAGE_DELEGATES_TITLE');
+
+    htmltext = "<div id='no_check' style='display:none;color:#FF0000;' >" + SUGAR.language.get('FP_events', 'LBL_MANAGE_POPUP_ERROR') + "</div>";
+
+    htmltext += "<table style='width: 100%;text-align:left;'>";
+    htmltext += "<tr><td style='padding: 2px;text-align:right;'><img src='themes/default/images/view-process-own.png'></td><td style='padding: 2px;font-size: 110%;'><b><a href='#' onclick='handle_invited();return false;'>" + SUGAR.language.get('FP_events', 'LBL_MANAGE_DELEGATES_INVITED') + "</a></b><td></tr>";
+    htmltext += "<tr><td style='padding: 2px;text-align:right;'><img src='themes/default/images/view-process-own.png'></td><td style='padding: 2px;font-size: 110%;'><strong><a href='#' onclick='handle_not_invited();return false;'>" + SUGAR.language.get('FP_events', 'LBL_MANAGE_DELEGATES_NOT_INVITED') + "</a></strong><td></tr>";
+    htmltext += "<tr><td style='padding: 2px;text-align:right;'><img src='themes/default/images/view-process-own.png'></td><td style='padding: 2px;font-size: 110%;'><strong><a href='#' onclick='handle_attended();return false;'>" + SUGAR.language.get('FP_events', 'LBL_MANAGE_DELEGATES_ATTENDED') + "</a></strong><td></tr>";
+    htmltext += "<tr><td style='padding: 2px;text-align:right;'><img src='themes/default/images/view-process-own.png'></td><td style='padding: 2px;font-size: 110%;'><strong><a href='#' onclick='handle_not_attended();return false;'>" + SUGAR.language.get('FP_events', 'LBL_MANAGE_DELEGATES_NOT_ATTENDED') + "</a></strong><td></tr>";
+
+    htmltext += "</table>";
+    //initialise dialog
+    dialog = new YAHOO.widget.Dialog('details_popup_div', {
+      width: '200px',
+      fixedcenter: "contained",
+      visible: false,
+      draggable: true,
+      effect: [
+        {effect: YAHOO.widget.ContainerEffect.FADE, duration: 0.1}],
+      modal: true
+    });
+
+    dialog.setHeader(titleVal);
+    dialog.setBody(htmltext);
+    dialog.setFooter('');
+
+    var handleCancel = function () {
+      this.cancel();
+    };
+
+    //set dialog box buttons
+    var myButtons = [{text: "Cancel", handler: handleCancel, isDefault: true}];
+    dialog.cfg.queueProperty("buttons", myButtons);
+    //render dialog box
+    dialog.render(document.body);
+    dialog.show();
+  }
+  else { //if no delegates are checked show error message
+
+    titleVal = SUGAR.language.get('FP_events', 'LBL_MANAGE_DELEGATES_TITLE');
+    htmltext = "<div id='no_check' style='color:#FF0000;' >" + SUGAR.language.get('FP_events', 'LBL_MANAGE_POPUP_ERROR') + "</div>";
+
+    //initialise dialog
+    dialog = new YAHOO.widget.Dialog('details_popup_div', {
+      width: '200px',
+      fixedcenter: "contained",
+      visible: false,
+      draggable: true,
+      effect: [
+        {effect: YAHOO.widget.ContainerEffect.FADE, duration: 0.1}],
+      modal: true
+    });
+
+    dialog.setHeader(titleVal);
+    dialog.setBody(htmltext);
+    dialog.setFooter('');
+
+    var handleCancel = function () {
+      this.cancel();
+    };
+    //set dialog box buttons
+    var myButtons = [{text: "Cancel", handler: handleCancel, isDefault: true}];
+    dialog.cfg.queueProperty("buttons", myButtons);
+    //render dialog box
+    dialog.render(document.body);
+    dialog.show();
+  }
+
+}
+
+function handle_invited() {
+  var ids = $("#custom_hidden_1").val();
+  var list = $("#select_entire_list").val();
+  var eventid = $("[name='record']").val();
+  var data = 'id=' + ids;
+  data += '&event_id=' + eventid;
+  data += '&entire_list=' + list;
+
+  if (ids != '') {
+
+    $.ajax({
+      type: "POST",
+      url: "index.php?module=FP_events&action=markasinvited",
+      data: data,
+      success: function () {
+        showSubPanel('delegates', null, true, 'FP_events');
+      }
+    });
+
+    dialog.cancel();
+  }
+  else {
+
+    $('#no_check').show();
+  }
+  $("body").removeClass('modal-open');
+}
+
+function handle_not_invited() {
+  var ids = $("#custom_hidden_1").val();
+  var list = $("#select_entire_list").val();
+  var eventid = $("[name='record']").val();
+  var data = 'id=' + ids;
+  data += '&event_id=' + eventid;
+  data += '&entire_list=' + list;
+
+  if (ids != '') {
+
+    $.ajax({
+      type: "POST",
+      url: "index.php?module=FP_events&action=markasnotinvited",
+      data: data,
+      success: function () {
+        showSubPanel('delegates', null, true, 'FP_events');
+      }
+    });
+
+    dialog.cancel();
+  }
+  else {
+
+    $('#no_check').show();
+  }
+  $("body").removeClass('modal-open');
+}
+
+function handle_attended() {
+  var ids = $("#custom_hidden_1").val();
+  var list = $("#select_entire_list").val();
+  var eventid = $("[name='record']").val();
+  var data = 'id=' + ids;
+  data += '&event_id=' + eventid;
+  data += '&entire_list=' + list;
+
+  if (ids != '') {
+
+    $.ajax({
+      type: "POST",
+      url: "index.php?module=FP_events&action=markasattended",
+      data: data,
+      success: function () {
+        showSubPanel('delegates', null, true, 'FP_events');
+      }
+    });
+
+    dialog.cancel();
+  }
+  else {
+
+    $('#no_check').show();
+  }
+  $("body").removeClass('modal-open');
+
+}
+
+function handle_not_attended() {
+  var ids = $("#custom_hidden_1").val();
+  var list = $("#select_entire_list").val();
+  var eventid = $("[name='record']").val();
+  var data = 'id=' + ids;
+  data += '&event_id=' + eventid;
+  data += '&entire_list=' + list;
+
+  if (ids != '') {
+
+    $.ajax({
+      type: "POST",
+      url: "index.php?module=FP_events&action=markasnotattended",
+      data: data,
+      success: function () {
+        showSubPanel('delegates', null, true, 'FP_events');
+      }
+    });
+
+    dialog.cancel();
+  }
+  else {
+
+    $('#no_check').show();
+  }
+  $("body").removeClass('modal-open');
+}
+
+function manage_acceptances() {
+
+  var ids = $("#custom_hidden_1").val();
+
+  if (ids != '') {
+
+    titleVal = SUGAR.language.get('FP_events', 'LBL_MANAGE_ACCEPTANCES_TITLE');
+
+    htmltext = "<div id='no_check' style='display:none;color:#FF0000;' >" + SUGAR.language.get('FP_events', 'LBL_MANAGE_POPUP_ERROR') + "</div>";
+
+    htmltext += "<table style='width: 100%;text-align:left;'>";
+    //ID's from removed buttons now applied to links in this pop-up example : #MarkAsAcceptedForm
+    htmltext += "<tr><td style='padding: 2px;text-align:right;'><img src='themes/default/images/view-process-own.png'></td><td style='padding: 2px;font-size: 110%;'><b><a id='MarkAsAcceptedForm' onclick='handle_accepted();return false;' href='#'>" + SUGAR.language.get('FP_events', 'LBL_MANAGE_ACCEPTANCES_ACCEPTED') + "</a></b><td></tr>";
+    htmltext += "<tr><td style='padding: 2px;text-align:right;'><img src='themes/default/images/view-process-own.png'></td><td style='padding: 2px;font-size: 110%;'><strong><a id='MarkAsDeclinedForm' onclick='handle_declined();return false;' href='#'>" + SUGAR.language.get('FP_events', 'LBL_MANAGE_ACCEPTANCES_DECLINED') + "</a></strong><td></tr>";
+
+    htmltext += "</table>";
+    //initialise dialog
+    dialog = new YAHOO.widget.Dialog('details_popup_div', {
+      width: '200px',
+      fixedcenter: "contained",
+      visible: false,
+      draggable: true,
+      effect: [
+        {effect: YAHOO.widget.ContainerEffect.FADE, duration: 0.1}],
+      modal: true
+    });
+
+    dialog.setHeader(titleVal);
+    dialog.setBody(htmltext);
+    dialog.setFooter('');
+
+    var handleCancel = function () {
+      this.cancel();
+    };
+    //set dialog box buttons
+    var myButtons = [{text: "Cancel", handler: handleCancel, isDefault: true}];
+    dialog.cfg.queueProperty("buttons", myButtons);
+    //render dialog box
+    dialog.render(document.body);
+    dialog.show();
+  }
+  else { //if no delegates are check show error message
+
+    titleVal = SUGAR.language.get('FP_events', 'LBL_MANAGE_ACCEPTANCES_TITLE');
+
+    htmltext = "<div id='no_check' style='color:#FF0000;' >" + SUGAR.language.get('FP_events', 'LBL_MANAGE_POPUP_ERROR') + "</div>";
+
+
+    //initialise dialog
+    dialog = new YAHOO.widget.Dialog('details_popup_div', {
+      width: '200px',
+      fixedcenter: "contained",
+      visible: false,
+      draggable: true,
+      effect: [
+        {effect: YAHOO.widget.ContainerEffect.FADE, duration: 0.1}],
+      modal: true
+    });
+
+    dialog.setHeader(titleVal);
+    dialog.setBody(htmltext);
+    dialog.setFooter('');
+
+    var handleCancel = function () {
+      this.cancel();
+    };
+    //set dialog box buttons
+    var myButtons = [{text: "Cancel", handler: handleCancel, isDefault: true}];
+    dialog.cfg.queueProperty("buttons", myButtons);
+    //render dialog box
+    dialog.render(document.body);
+    dialog.show();
+  }
+}
+
+function handle_accepted() {
+
+  var ids = $("#custom_hidden_1").val();
+  var list = $("#select_entire_list").val();
+  var eventid = $("[name='record']").val();
+  var data = 'id=' + ids;
+  data += '&event_id=' + eventid;
+  data += '&entire_list=' + list;
+
+  if (ids != '') {
+
+    $.ajax({
+      type: "POST",
+      url: "index.php?module=FP_events&action=markasaccepted",
+      data: data,
+      success: function () {
+        showSubPanel('delegates', null, true, 'FP_events');
+      }
+    });
+
+    dialog.cancel();
+  }
+  else {
+    $('#no_check').show();
+  }
+}
+
+function handle_declined() {
+
+  var ids = $("#custom_hidden_1").val();
+  var list = $("#select_entire_list").val();
+  var eventid = $("[name='record']").val();
+  var data = 'id=' + ids;
+  data += '&event_id=' + eventid;
+  data += '&entire_list=' + list;
+
+  if (ids != '') {
+
+    $.ajax({
+      type: "POST",
+      url: "index.php?module=FP_events&action=markasdeclined",
+      data: data,
+      success: function () {
+        showSubPanel('delegates', null, true, 'FP_events');
+      }
+    });
+
+    dialog.cancel();
+  }
+  else {
+    $('#no_check').show();
+  }
+}

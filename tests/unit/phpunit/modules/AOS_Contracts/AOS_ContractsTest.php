@@ -39,8 +39,6 @@ class AOS_ContractsTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         $state->pushTable('tracker');
 //
         $state->pushGlobals();
-        
-        
 
         $aosContracts = new AOS_Contracts();
         $aosContracts->name = 'test';
@@ -57,7 +55,6 @@ class AOS_ContractsTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         $this->assertEquals(null, $result);
         
         // clean up
-        
         $state->popGlobals();
 //
         $state->popTable('tracker');

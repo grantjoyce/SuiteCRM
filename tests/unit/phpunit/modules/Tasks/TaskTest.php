@@ -35,7 +35,6 @@ class TaskTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
 
     public function testTask()
     {
-
         //execute the contructor and check for the Object type and  attributes
         $task = new Task();
 
@@ -183,8 +182,6 @@ class TaskTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         } catch (Exception $e) {
             $this->fail($e->getMessage() . "\nTrace:\n" . $e->getTraceAsString());
         }
-        
-        // clean up
     }
 
     public function testget_list_view_data()

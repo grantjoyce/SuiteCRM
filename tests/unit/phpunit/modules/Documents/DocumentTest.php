@@ -37,8 +37,6 @@ class DocumentTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         $state->pushTable('documents');
         $state->pushTable('tracker');
         $state->pushGlobals();
-        
-        
 
         $document = new Document();
 
@@ -92,7 +90,6 @@ class DocumentTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         $this->assertEquals('test', $document->get_summary_text());
         
         // clean up
-        
         $state->popTable('cron_remove_documents');
 //
     }
@@ -113,7 +110,6 @@ class DocumentTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         $this->assertEquals(true, $document->is_authenticated());
         
         // clean up
-        
         $state->popTable('cron_remove_documents');
 //
     }
@@ -125,11 +121,7 @@ class DocumentTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
 //
         $state->pushTable('cron_remove_documents');
         $state->pushGlobals();
-        
-        
-        
-        
-        
+
         $document = new Document();
 
         //execute the method and test if it works and does not throws an exception.
@@ -141,7 +133,6 @@ class DocumentTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         }
         
         // clean up
-        
         $state->popGlobals();
         $state->popTable('cron_remove_documents');
 //
@@ -157,10 +148,8 @@ class DocumentTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
 //
         $state->pushTable('cron_remove_documents');
         $state->pushGlobals();
-        
-        
+
         $document = new Document();
-        $current_theme = SugarThemeRegistry::current();
         $document->id = 'abcde-12345';
 
         //execute the method with attributes preset and verify attributes are set accordingly
@@ -172,7 +161,6 @@ class DocumentTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         $this->assertEquals('', $document->file_url_noimage, 'file url noimage: [[' . $document->file_url_noimage . ']]');
         
         // clean up
-        
         $state->popGlobals();
         $state->popTable('cron_remove_documents');
 //
@@ -181,11 +169,7 @@ class DocumentTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
     public function testlist_view_parse_additional_sections()
     {
         $state = new SuiteCRM\StateSaver();
-        
         $state->pushTable('cron_remove_documents');
-        
-        
-        
         
         $document = new Document();
 
@@ -201,7 +185,6 @@ class DocumentTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         }
         
         // clean up
-        
         $state->popTable('cron_remove_documents');
     }
 
@@ -227,8 +210,7 @@ class DocumentTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         self::markTestIncomplete();
         
         $document = new Document();
-        $current_theme = SugarThemeRegistry::current();
-        //execute the method and verify that it retunrs expected results
+        // Execute the method and verify that it returns expected results
 
         $document->filename = 'test';
         $document->file_url = 'test_url';
@@ -270,12 +252,6 @@ class DocumentTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
 
     public function testmark_relationships_deleted()
     {
-        $state = new SuiteCRM\StateSaver();
-        
-        
-        
-        
-        
         $document = new Document();
 
         //execute the method and test if it works and does not throws an exception.
@@ -285,8 +261,6 @@ class DocumentTest extends SuiteCRM\StateCheckerPHPUnitTestCaseAbstract
         } catch (Exception $e) {
             $this->fail($e->getMessage() . "\nTrace:\n" . $e->getTraceAsString());
         }
-        
-        // clean up
     }
 
     public function testbean_implements()

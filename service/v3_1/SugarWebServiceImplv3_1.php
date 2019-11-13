@@ -98,7 +98,7 @@ class SugarWebServiceImplv3_1 extends SugarWebServiceImplv3
     {
         $GLOBALS['log']->info('Begin: SugarWebServiceImpl->get_module_fields_md5(v3_1) for module: ' . print_r(
             $module_name,
-                true
+            true
         ));
 
         $results = array();
@@ -112,7 +112,7 @@ class SugarWebServiceImplv3_1 extends SugarWebServiceImplv3
 
         $GLOBALS['log']->info('End: SugarWebServiceImpl->get_module_fields_md5 (v3_1) for module: ' . print_r(
             $module_name,
-                true
+            true
         ));
 
         return $results;
@@ -243,7 +243,7 @@ class SugarWebServiceImplv3_1 extends SugarWebServiceImplv3
         if (self::$helperObject->isLogLevelDebug()) {
             $GLOBALS['log']->debug('SoapHelperWebServices->set_entry - input data is ' . var_export(
                 $name_value_list,
-                    true
+                true
             ));
         } // if
         $error = new SoapError();
@@ -293,12 +293,12 @@ class SugarWebServiceImplv3_1 extends SugarWebServiceImplv3
             $seed,
             'Save',
             $error,
-                'no_access'
+            'no_access'
         ) || ($seed->deleted == 1 && !self::$helperObject->checkACLAccess(
-                    $seed,
-                    'Delete',
-                    $error,
-                    'no_access'
+            $seed,
+            'Delete',
+            $error,
+            'no_access'
                 ))
         ) {
             $GLOBALS['log']->info('End: SugarWebServiceImpl->set_entry');
@@ -399,7 +399,7 @@ class SugarWebServiceImplv3_1 extends SugarWebServiceImplv3
             $password = self::$helperObject->decrypt_string($user_auth['password']);
             if ($authController->login(
                 $user_auth['user_name'],
-                    $password
+                $password
             ) && isset($_SESSION['authenticated_user_id'])
             ) {
                 $success = true;
@@ -748,7 +748,7 @@ class SugarWebServiceImplv3_1 extends SugarWebServiceImplv3
         } // foreach
 
         // Calculate the offset for the start of the next page
-        $next_offset = $offset + sizeof($output_list);
+        $next_offset = $offset + count($output_list);
 
         $returnRelationshipList = array();
         foreach ($linkoutput_list as $rel) {
@@ -771,7 +771,7 @@ class SugarWebServiceImplv3_1 extends SugarWebServiceImplv3
         $GLOBALS['log']->info('End: SugarWebServiceImpl->get_entry_list');
 
         return array(
-            'result_count' => sizeof($output_list),
+            'result_count' => count($output_list),
             'total_count' => $totalRecordCount,
             'next_offset' => $next_offset,
             'entry_list' => $output_list,

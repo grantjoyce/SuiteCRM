@@ -524,8 +524,8 @@ class ConnectorsController extends SugarController
                     $dir = 'custom/' . $dir;
                 }
 
-                if (!file_exists("{$dir}")) {
-                    mkdir_recursive("{$dir}");
+                if (!file_exists((string)($dir))) {
+                    mkdir_recursive((string)($dir));
                 }
 
                 $fakeMapping = array('beans' => array());
@@ -575,8 +575,8 @@ class ConnectorsController extends SugarController
                 $dir = 'custom/' . $dir;
             }
 
-            if (!file_exists("{$dir}")) {
-                mkdir_recursive("{$dir}");
+            if (!file_exists((string)($dir))) {
+                mkdir_recursive((string)($dir));
             }
 
             if (!write_array_to_file('mapping', $mapping, "{$dir}/mapping.php")) {
@@ -657,8 +657,8 @@ class ConnectorsController extends SugarController
                 $dir = 'custom/' . $dir;
             }
 
-            if (!file_exists("{$dir}")) {
-                mkdir_recursive("{$dir}");
+            if (!file_exists((string)($dir))) {
+                mkdir_recursive((string)($dir));
             }
 
             if (!write_array_to_file('mapping', $mapping, "{$dir}/mapping.php")) {

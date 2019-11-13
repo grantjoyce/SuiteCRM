@@ -23,23 +23,19 @@ class CasesCest
             $this->fakeData = Faker\Factory::create();
         }
 
-        $this->fakeDataSeed = rand(0, 2048);
+        $this->fakeDataSeed = mt_rand(0, 2048);
         $this->fakeData->seed($this->fakeDataSeed);
     }
 
     /**
      * @param \AcceptanceTester $I
      * @param \Step\Acceptance\ListView $listView
-     * @param \Step\Acceptance\Cases $cases
-     * @param \Helper\WebDriverHelper $webDriverHelper
      *
      * As an administrator I want to view the cases module.
      */
     public function testScenarioViewCasesModule(
         \AcceptanceTester $I,
-        \Step\Acceptance\ListView $listView,
-        \Step\Acceptance\Cases $cases,
-        \Helper\WebDriverHelper $webDriverHelper
+        \Step\Acceptance\ListView $listView
     ) {
         $I->wantTo('View the cases module for testing');
 
@@ -57,7 +53,6 @@ class CasesCest
      * @param \Step\Acceptance\ListView $listView
      * @param \Step\Acceptance\Cases $cases
      * @param \Step\Acceptance\Cases $account
-     * @param \Helper\WebDriverHelper $webDriverHelper
      *
      * As administrative user I want to create a case so that I can test
      * the standard fields.
@@ -67,8 +62,7 @@ class CasesCest
         \Step\Acceptance\DetailView $detailView,
         \Step\Acceptance\ListView $listView,
         \Step\Acceptance\Cases $cases,
-        \Step\Acceptance\Accounts $account,
-        \Helper\WebDriverHelper $webDriverHelper
+        \Step\Acceptance\Accounts $account
     ) {
         $I->wantTo('Create a Case');
 

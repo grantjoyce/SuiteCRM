@@ -23,7 +23,7 @@ class HistoryCest
             $this->fakeData = Faker\Factory::create();
         }
 
-        $this->fakeDataSeed = rand(0, 2048);
+        $this->fakeDataSeed = mt_rand(0, 2048);
         $this->fakeData->seed($this->fakeDataSeed);
     }
 
@@ -34,7 +34,6 @@ class HistoryCest
      * @param \Step\Acceptance\Accounts $accounts
      * @param \Step\Acceptance\Calls $calls
      * @param \Step\Acceptance\NavigationBar $NavigationBar
-     * @param \Helper\WebDriverHelper $webDriverHelper
      *
      * As a user I want to see the due date on the activities module
      */
@@ -44,8 +43,7 @@ class HistoryCest
         \Step\Acceptance\DetailView $detailView,
         \Step\Acceptance\Accounts $accounts,
         \Step\Acceptance\Calls $calls,
-        \Step\Acceptance\NavigationBar $NavigationBar,
-        \Helper\WebDriverHelper $webDriverHelper
+        \Step\Acceptance\NavigationBar $NavigationBar
     ) {
         $I->wantTo('See the due date field on Account History subpanel');
 
