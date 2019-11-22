@@ -1,4 +1,4 @@
-## SuiteASSURED 2.0.4
+## SuiteASSURED 2.0.5
 
 ### What's in this repository ###
 
