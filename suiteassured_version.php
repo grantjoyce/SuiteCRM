@@ -4,5 +4,5 @@ if (!defined('sugarEntry') || !sugarEntry) {
     die('Not A Valid Entry Point');
 }
 
-$suiteassured_version = '2.0.5';
-$suiteassured_timestamp = '2019-11-18 17:00:00';
+$suiteassured_version = '2.0.6';
+$suiteassured_timestamp = '2020-02-10 17:00:00';
