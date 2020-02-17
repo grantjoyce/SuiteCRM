@@ -3445,7 +3445,7 @@ class InboundEmail extends SugarBean
             ) { // if we haven't sent this user 10 replies in 24hours
 
                 if (!empty($this->stored_options)) {
-                    $storedOptions = unserialize(base64_decode($this->stored_options));
+                    $storedOptions = sugar_unserialize(base64_decode($this->stored_options));
                 }
                 // get FROM NAME
                 if (!empty($storedOptions['from_name'])) {
@@ -3664,7 +3664,7 @@ class InboundEmail extends SugarBean
             $GLOBALS['log']->debug('InboundEmail created one case with number: ' . $c->case_number);
             $createCaseTemplateId = $this->get_stored_options('create_case_email_template', "");
             if (!empty($this->stored_options)) {
-                $storedOptions = unserialize(base64_decode($this->stored_options));
+                $storedOptions = sugar_unserialize(base64_decode($this->stored_options));
             }
             if (!empty($createCaseTemplateId)) {
                 $fromName = "";
@@ -6062,7 +6062,7 @@ class InboundEmail extends SugarBean
      */
     public function getStoredOptions()
     {
-        return unserialize(base64_decode($this->stored_options));
+        return sugar_unserialize(base64_decode($this->stored_options));
     }
 
     /**
@@ -6083,7 +6083,7 @@ class InboundEmail extends SugarBean
     public static function get_stored_options_static($option_name, $default_value = null, $stored_options = null)
     {
         if (!empty($stored_options)) {
-            $storedOptions = unserialize(base64_decode($stored_options));
+            $storedOptions = sugar_unserialize(base64_decode($stored_options));
             if (isset($storedOptions[$option_name])) {
                 $default_value = $storedOptions[$option_name];
             }
@@ -6141,7 +6141,7 @@ class InboundEmail extends SugarBean
      */
     public function getNewMessageIds()
     {
-        $storedOptions = unserialize(base64_decode($this->stored_options));
+        $storedOptions = sugar_unserialize(base64_decode($this->stored_options));
 
         //TODO figure out if the since date is UDT
         if (!is_bool($storedOptions) && $storedOptions['only_since']) {// POP3 does not support Unseen flags
