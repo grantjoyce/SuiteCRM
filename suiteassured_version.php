@@ -5,4 +5,4 @@ if (!defined('sugarEntry') || !sugarEntry) {
 }
 
 $suiteassured_version = '2.0.6';
-$suiteassured_timestamp = '2020-02-10 17:00:00';
+$suiteassured_timestamp = '2020-02-17 17:00:00';
